@@ -16,6 +16,7 @@ BuildWork 홈페이지(`C:\Users\user\Dropbox\web_site`)의 디자인과 컴포�
 | 2026-10-29 | 연구 목록(논문·저서, 보고서, 학위논문) 편집을 `_intake/research-edit.html`로 분리. `lab-intake.html`은 랩 정보·교수·구성원·KCI 설정·워크숍만 다룸 |
 | 2026-10-29 | 논문 30편·저서 1권·과제 22건을 교수 CV(`../lab_site_private/tasks/정교수님.pdf`(저장소 밖))에서 시드로 넣음. KCI 수집(US-009) 전까지 이 목록이 기준 |
 | 2026-10-29 | People 카드: 해시 진입 시 강조 테두리는 넣지 않음(스크롤만). 구성원 학위논문(학위·연도·제목)을 카드에 표시 |
+| 2026-10-29 | Vercel 배포(https://junglab.vercel.app). GitHub 연동 배포로 바꾸고, 첫 CLI 배포는 비공개 PDF가 소스에 섞여 삭제함 |
 | 2026-10-29 | 교수 사진을 SCM 특강 포스터 원본(`public/people/jung-hyekyung.jpg`)으로 교체. 파비콘·PWA 아이콘은 초록 바탕 "E" 텍스트 아이콘 |
 
 ### 결정 사항
@@ -277,12 +278,14 @@ BuildWork 홈페이지(`C:\Users\user\Dropbox\web_site`)의 디자인과 컴포�
 **설명:** 개발자로서 lab_site를 web_site와 별도로 배포하고 싶다.
 
 **수용 조건:**
-- [ ] `.env.local.example`에 `PORT`, `KCI_API_KEY` 항목만 남긴다(값은 비움)
-- [ ] `.gitignore`에 `.env.local`, `src/data/kci-raw.json`, `_intake/*.md`, `_intake/*.csv`, `_workspace/`, `_papers/`를 넣는다(`publications.json`과 `src/data/*.json`은 커밋 대상)
-- [ ] 별도 GitHub 저장소(`https://github.com/kwonsuhyeon/junglab`)와 별도 Vercel 프로젝트로 배포한다. 도메인은 9절 미결 사항
-- [ ] 공개 저장소에 올리지 않는 것: `.env.local`(KCI 키), `_intake/*.md·*.csv`, `inbox/`, `_papers/`, `_workspace/`, 교수 CV·포스터 원본 PDF(저장소 밖 `lab_site_private/`로 옮김)
-- [ ] 로컬 빌드 검증은 Dropbox 잠금(EBUSY)을 피해 scratchpad 복사본에서 `next build`로 한다. dev 서버를 켠 채 같은 폴더에서 build하지 않는다
-- [ ] 빌드 성공, 모든 정적 페이지 생성 확인
+- [x] `.env.local.example`에 `PORT`, `KCI_API_KEY` 항목만 남긴다(값은 비움)
+- [x] `.gitignore`에 `.env.local`, `src/data/kci-raw.json`, `_intake/*.md`, `_intake/*.csv`, `_workspace/`, `_papers/`를 넣는다(`publications.json`과 `src/data/*.json`은 커밋 대상)
+- [x] 별도 GitHub 저장소(`https://github.com/kwonsuhyeon/junglab`)와 별도 Vercel 프로젝트로 배포한다. 도메인은 9절 미결 사항
+- [x] 공개 저장소에 올리지 않는 것: `.env.local`(KCI 키), `_intake/*.md·*.csv`, `inbox/`, `_papers/`, `_workspace/`, 교수 CV·포스터 원본 PDF(저장소 밖 `lab_site_private/`로 옮김)
+- [x] 로컬 빌드 검증은 Dropbox 잠금(EBUSY)을 피해 scratchpad 복사본에서 `next build`로 한다. dev 서버를 켠 채 같은 폴더에서 build하지 않는다
+- [x] 빌드 성공, 모든 정적 페이지 생성 확인
+- [x] 배포는 GitHub `main` 푸시 → Vercel 자동 배포로만 한다. CLI 배포(`vercel deploy`)는 로컬 파일까지 올라갈 수 있어 쓰지 않는다(2026-10-29 CV PDF 업로드 사고 후 결정)
+- [x] 프로덕션 주소: https://junglab.vercel.app · 연구 목록 편집 폼: https://junglab.vercel.app/edit/research.html (noindex)
 
 ## 4. 기능 요구사항
 
