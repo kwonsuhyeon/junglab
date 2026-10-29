@@ -19,7 +19,7 @@
     --ok: #16a34a;
     --hidden-row: #f3f4f6;
     --radius: 12px;
-    --page-width: 1600px;
+    --page-width: 2200px; /* 표가 넓어서 화면 폭을 거의 다 씀 */
   }
   * { box-sizing: border-box; }
   body {
@@ -71,14 +71,20 @@
   table { width: 100%; border-collapse: collapse; }
   th, td { border-bottom: 1px solid var(--line); padding: 6px 6px; text-align: left; vertical-align: middle; }
   th { font-size: 13px; color: var(--muted); font-weight: 600; white-space: nowrap; }
-  td input, td select, td textarea { min-width: 80px; }
-  td.w-title textarea { min-width: 300px; }
-  td.w-summary textarea { min-width: 260px; }
-  td.w-authors input { min-width: 180px; }
+  td input[type=text], td select, td textarea { min-width: 80px; }
+  /* 체크박스는 표 입력칸 폭 규칙에서 뺀다 (분야 체크박스와 이름이 떨어지지 않게) */
+  td input[type=checkbox] { width: auto; min-width: 0; margin: 0; flex: none; }
+  td.w-title textarea { min-width: 260px; }
+  td.w-summary textarea { min-width: 220px; }
+  td.w-authors input { min-width: 150px; }
+  td.w-venue input { min-width: 140px; }
+  td.w-short input { min-width: 64px; width: 72px; }
+  td.w-date input { min-width: 84px; width: 92px; }
   td.ctl { width: 1%; white-space: nowrap; }
   td.id { font-size: 12px; color: var(--muted); white-space: nowrap; }
   tr.off td { background: var(--hidden-row); }
-  .areas { display: grid; grid-template-columns: repeat(2, max-content); gap: 1px 10px; font-size: 12px; }
+  .areas { display: grid; grid-template-columns: repeat(2, max-content); gap: 2px 12px; font-size: 12px; }
+  .areas label { line-height: 1.3; }
   .areas label, .check { display: inline-flex; gap: 4px; align-items: center; white-space: nowrap; cursor: pointer; }
   .add-row { margin-top: 8px; }
   .members { font-size: 13px; color: var(--muted); }
@@ -119,7 +125,7 @@
 
   <section class="card" id="sec-publications">
     <h2><span class="num">1</span>논문·저서 <span class="count" data-count="publications"></span></h2>
-    <p class="hint">참여자는 저자 순서대로 쉼표로 구분 · 구성원 이름과 같으면 사이트에서 About 카드로 연결 · "표시"를 끄면 사이트에서 숨김 · id는 바꾸지 않기(KCI 재수집 때 기준)</p>
+    <p class="hint">참여자는 저자 순서대로 쉼표로 구분 · 구성원 이름과 같으면 사이트에서 People 카드로 연결 · "표시"를 끄면 사이트에서 숨김 · id는 바꾸지 않기(KCI 재수집 때 기준)</p>
     <div class="table-wrap"><table data-table="publications"></table></div>
     <button class="small add-row" data-add="publications">+ 논문 추가</button>
   </section>
@@ -151,14 +157,14 @@ const TABLES = {
   publications: [
     ["id", "id", "readonly", "id"], ["show", "표시", "check"],
     ["type", "유형", ["논문", "저서"]], ["title", "제목", "textarea", "w-title"],
-    ["journal", "학술지·출판사", "text"], ["volume", "권호", "text"], ["date", "발행(YYYY.MM)", "text"],
+    ["journal", "학술지·출판사", "text", "w-venue"], ["volume", "권호", "text", "w-short"], ["date", "발행(YYYY.MM)", "text", "w-date"],
     ["role", "교수 역할", ["책임", "교신", "공동", "공동집필"]], ["authors", "참여자", "text", "w-authors"],
     ["areas", "분야", "areas"], ["doi", "DOI", "text"], ["link", "원문 링크·PDF", "text"],
     ["summary", "요약 (2~3문장)", "textarea", "w-summary"],
   ],
   reports: [
-    ["title", "제목", "textarea", "w-title"], ["client", "발주기관", "text"], ["year", "연도", "text"],
-    ["period", "기간", "text"], ["role", "교수 역할", ["연구책임자", "공동연구원"]],
+    ["title", "제목", "textarea", "w-title"], ["client", "발주기관", "text", "w-venue"], ["year", "연도", "text", "w-short"],
+    ["period", "기간", "text", "w-date"], ["role", "교수 역할", ["연구책임자", "공동연구원"]],
     ["status", "상태", ["완료", "진행 중", "예정"]], ["participants", "참여자", "text", "w-authors"],
     ["areas", "분야", "areas"], ["link", "원문 링크 또는 PDF 파일명", "text"],
   ],
