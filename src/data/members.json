@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "park-minju",
+    "name": "박민주",
+    "status": "박사 졸업",
+    "topic": "",
+    "email": "",
+    "photo": "",
+    "kciName": "박민주"
+  },
+  {
+    "slug": "yoon-jungheon",
+    "name": "윤중헌",
+    "status": "박사 졸업",
+    "topic": "",
+    "email": "",
+    "photo": "",
+    "kciName": "윤중헌"
+  },
+  {
+    "slug": "yu-daseon",
+    "name": "유다선",
+    "status": "박사 졸업",
+    "topic": "",
+    "email": "",
+    "photo": "",
+    "kciName": "유다선"
+  },
+  {
+    "slug": "lee-sujin",
+    "name": "이수진",
+    "status": "박사과정",
+    "topic": "",
+    "email": "",
+    "photo": "",
+    "kciName": "이수진"
+  },
+  {
+    "slug": "noh-changgyun",
+    "name": "노창균",
+    "status": "박사과정",
+    "topic": "",
+    "email": "",
+    "photo": "",
+    "kciName": "노창균"
+  },
+  {
+    "slug": "kwon-suhyeon",
+    "name": "권수현",
+    "status": "박사과정",
+    "topic": "",
+    "email": "",
+    "photo": "",
+    "kciName": "권수현"
+  },
+  {
+    "slug": "kim-yongwoon",
+    "name": "김용운",
+    "status": "석사과정",
+    "topic": "",
+    "email": "",
+    "photo": "",
+    "kciName": "김용운"
+  }
+]

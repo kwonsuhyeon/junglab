@@ -1,0 +1,71 @@
+{
+  "slug": "professor",
+  "name": "정혜경",
+  "romanSlug": "jung-hyekyung",
+  "title": "부교수",
+  "dept": "한국기술교육대학교 HRD학과",
+  "email": "hjung@koreatech.ac.kr",
+  "phone": "041-560-1108",
+  "photo": "jung-hyekyung.jpg",
+  "bio": "",
+  "areas": [
+    "HRD·직업훈련 정책과 역량평가",
+    "교육평가와 인과추론 방법론 (경향점수매칭, 다층분석, 잠재프로파일분석, BART, SEMtree)",
+    "국제비교교육과 국가수준 학업성취도 평가 (PISA, 표집설계, ILO 협력)"
+  ],
+  "awards": [
+    "2021 한국인력개발학회 우수 HRD 논문상 (교신저자)"
+  ],
+  "education": [
+    {
+      "degree": "박사",
+      "school": "University of California, Los Angeles",
+      "major": "교육학 (양적연구방법)",
+      "year": "2010"
+    },
+    {
+      "degree": "석사",
+      "school": "연세대학교",
+      "major": "교육학 (측정 및 평가)",
+      "year": "2002"
+    },
+    {
+      "degree": "학사",
+      "school": "연세대학교",
+      "major": "교육학",
+      "year": "2000"
+    }
+  ],
+  "career": [
+    {
+      "period": "2026.02 ~ 현재",
+      "org": "한국기술교육대학교 HRD학과",
+      "role": "학과장"
+    },
+    {
+      "period": "2025.03 ~ 2026.02",
+      "org": "한국기술교육대학교 테크노인력개발전문대학원",
+      "role": "주임교수"
+    },
+    {
+      "period": "2023.09 ~ 2026.02",
+      "org": "한국기술교육대학교 데이터성과센터",
+      "role": "센터장 (2023.09~2024.02, 2024.09~2026.02)"
+    },
+    {
+      "period": "2020.03 ~ 현재",
+      "org": "한국기술교육대학교 HRD학과",
+      "role": "조교수, 부교수"
+    },
+    {
+      "period": "2012.03 ~ 2020.02",
+      "org": "한국교육과정평가원",
+      "role": "부연구위원, 연구위원"
+    },
+    {
+      "period": "2010.09 ~ 2012.02",
+      "org": "American Institutes for Research (미국)",
+      "role": "Researcher"
+    }
+  ]
+}

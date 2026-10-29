@@ -1,0 +1,11 @@
+[
+  {
+    "id": "activity-01",
+    "type": "workshop",
+    "title": "SEM 연구자를 위한 인과추론: AI 시대의 구조적 인과 모델(SCM) 입문",
+    "date": "2026-10-16",
+    "org": "인하대학교 (2026 글로벌 인문사회융합연구 세미나)",
+    "desc": "SCM 개념과 SEM 비교, DAGitty 인과 다이어그램 실습, 사회과학 SCM 적용 사례, 생성형 AI 시대의 Causal AI 동향",
+    "link": ""
+  }
+]

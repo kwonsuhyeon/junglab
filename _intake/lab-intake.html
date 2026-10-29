@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연구실 사이트 입력</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root {
+    --bg: #f9f9f7;
+    --card: #ffffff;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --accent: #2a78d6;
+    --accent-soft: #eaf2fc;
+    --warn: #eb6834;
+    --ok: #16a34a;
+    --radius: 12px;
+    --page-width: 1320px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: Pretendard, -apple-system, "Malgun Gothic", sans-serif; font-size: 15px; line-height: 1.55;
+  }
+  .page { max-width: var(--page-width); margin: 0 auto; padding: 24px 16px 96px; }
+  header.top {
+    position: sticky; top: 0; z-index: 10; background: var(--bg);
+    border-bottom: 1px solid var(--line); padding: 14px 0 12px; margin-bottom: 20px;
+  }
+  header.top .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+  h1 { font-size: 22px; margin: 0; }
+  .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  button, .btn {
+    font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--card);
+    border-radius: 8px; padding: 7px 12px; cursor: pointer; color: var(--text);
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  button.danger { color: var(--warn); }
+  button.small { padding: 3px 9px; font-size: 13px; }
+  button:hover { filter: brightness(0.97); }
+  .progress { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 14px; }
+  .progress label { display: inline-flex; gap: 5px; align-items: center; cursor: pointer; }
+  .progress a { color: var(--text); text-decoration: none; }
+  .progress a:hover { color: var(--accent); }
+  .status { font-size: 13px; color: var(--ok); min-height: 18px; }
+  section.card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 24px; margin-bottom: 18px; scroll-margin-top: 150px;
+  }
+  section.card h2 { display: flex; align-items: center; gap: 10px; font-size: 18px; margin: 0 0 4px; }
+  section.card h2 .num {
+    display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-size: 13px;
+  }
+  .hint { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px 18px; }
+  .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .field.wide { grid-column: 1 / -1; }
+  input[type=text], input[type=email], input[type=date], select, textarea {
+    width: 100%; font: inherit; font-size: 14px; padding: 7px 9px;
+    border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--text);
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  input.invalid { border-color: var(--warn); background: #fff5f0; }
+  textarea { min-height: 72px; resize: vertical; }
+  h3 { font-size: 15px; margin: 18px 0 8px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 6px; text-align: left; vertical-align: middle; }
+  th { font-size: 13px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  td input, td select, td textarea { min-width: 90px; }
+  td textarea { min-height: 38px; }
+  td.ctl { width: 1%; white-space: nowrap; }
+  .add-row { margin-top: 8px; }
+  .to-top {
+    position: fixed; right: 22px; bottom: 22px; width: 46px; height: 46px; border-radius: 50%;
+    background: #111; color: #fff; border: none; font-size: 20px; cursor: pointer;
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .to-top.show { opacity: 1; pointer-events: auto; }
+  input[type=file] { display: none; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div class="row">
+      <div>
+        <h1>연구실 사이트 입력</h1>
+        <div class="sub">입력하는 대로 이 브라우저에 자동 저장됨 · "저장"을 누르면 md·csv 파일 3개를 내려받음 → <code>lab_site/_intake/</code>에 넣고 <code>npm run intake</code></div>
+      </div>
+      <div class="actions">
+        <button class="primary" id="btn-save">저장 (파일 3개)</button>
+        <button id="btn-load">불러오기</button>
+        <button class="danger" id="btn-reset">입력 초기화</button>
+        <input type="file" id="file-load" multiple accept=".md,.csv">
+      </div>
+    </div>
+    <div class="progress" id="progress"></div>
+    <div class="status" id="status"></div>
+  </header>
+
+  <!-- 1. 랩 기본 정보 -->
+  <section class="card" id="sec-lab">
+    <h2><span class="num">1</span>랩 기본 정보</h2>
+    <p class="hint">사이트 상단 텍스트 로고, 브라우저 탭 제목, 첫 화면 문구에 쓰임</p>
+    <div class="grid">
+      <div class="field"><label>정식 이름 (영문)</label><input type="text" data-path="lab.name"></div>
+      <div class="field"><label>한글 이름 (선택)</label><input type="text" data-path="lab.nameKo"></div>
+      <div class="field"><label>텍스트 로고 표기</label><input type="text" data-path="lab.logoText"></div>
+      <div class="field"><label>소속 (대학·학과)</label><input type="text" data-path="lab.affiliation"></div>
+      <div class="field wide"><label>한 줄 소개 (첫 화면 큰 문구)</label><input type="text" data-path="lab.tagline"></div>
+      <div class="field wide"><label>보조 문구 (첫 화면 한 줄 소개 아래)</label><input type="text" data-path="lab.taglineSub"></div>
+      <div class="field"><label>연락처 이메일</label><input type="email" data-path="lab.email"></div>
+      <div class="field"><label>전화</label><input type="text" data-path="lab.phone"></div>
+      <div class="field wide"><label>주소·연구실 위치</label><input type="text" data-path="lab.address"></div>
+    </div>
+  </section>
+
+  <!-- 2. 교수 소개 -->
+  <section class="card" id="sec-professor">
+    <h2><span class="num">2</span>교수 소개</h2>
+    <p class="hint">About 페이지 상단 · 사진 파일은 <code>public/people/</code>에 두고 파일명만 입력</p>
+    <div class="grid">
+      <div class="field"><label>이름</label><input type="text" data-path="professor.name"></div>
+      <div class="field"><label>slug (로마자, 성-이름)</label><input type="text" data-path="professor.slug" data-slug></div>
+      <div class="field"><label>직위</label><input type="text" data-path="professor.title"></div>
+      <div class="field"><label>소속</label><input type="text" data-path="professor.dept"></div>
+      <div class="field"><label>이메일</label><input type="email" data-path="professor.email"></div>
+      <div class="field"><label>전화</label><input type="text" data-path="professor.phone"></div>
+      <div class="field"><label>사진 파일명</label><input type="text" data-path="professor.photo"></div>
+      <div class="field wide"><label>소개 문단 (선택)</label><textarea data-path="professor.bio"></textarea></div>
+      <div class="field wide"><label>연구 분야 (한 줄에 하나)</label><textarea data-path="professor.areas"></textarea></div>
+      <div class="field wide"><label>수상 (한 줄에 하나)</label><textarea data-path="professor.awards"></textarea></div>
+    </div>
+    <h3>학력</h3>
+    <div class="table-wrap"><table data-table="education"></table></div>
+    <button class="small add-row" data-add="education">+ 학력 추가</button>
+    <h3>경력</h3>
+    <div class="table-wrap"><table data-table="career"></table></div>
+    <button class="small add-row" data-add="career">+ 경력 추가</button>
+  </section>
+
+  <!-- 3. 구성원 -->
+  <section class="card" id="sec-members">
+    <h2><span class="num">3</span>구성원</h2>
+    <p class="hint">About 카드와 논문 참여자 링크(<code>/about#member-{slug}</code>)에 쓰임 · slug는 이름을 입력하면 자동으로 채워지고 고칠 수 있음 · KCI 저자 표기는 KCI에 이름이 다르게 올라가 있을 때만</p>
+    <div class="table-wrap"><table data-table="members"></table></div>
+    <button class="small add-row" data-add="members">+ 구성원 추가</button>
+  </section>
+
+  <!-- 4. KCI 검색 설정 -->
+  <section class="card" id="sec-kci">
+    <h2><span class="num">4</span>KCI 검색 설정</h2>
+    <p class="hint">교수님이 저자인 논문만 받고, 아래 소속 중 하나와 맞는 것만 남김 (기관명 일부 일치)</p>
+    <div class="grid">
+      <div class="field"><label>교수 KCI 저자 표기</label><input type="text" data-path="kci.authorName"></div>
+      <div class="field"><label>검색 시작 연도 (선택)</label><input type="text" data-path="kci.startYear"></div>
+    </div>
+    <h3>소속 기관명</h3>
+    <div class="table-wrap"><table data-table="affiliations"></table></div>
+    <button class="small add-row" data-add="affiliations">+ 소속 추가</button>
+  </section>
+
+  <!-- 논문·보고서·학위논문은 research-edit.html에서 -->
+  <section class="card">
+    <h2>연구 목록은 따로 편집</h2>
+    <p class="hint">논문·저서, 연구보고서, 학위논문은 <a href="research-edit.html">research-edit.html</a>에서 고침 (csv 3개 저장 → <code>_intake/</code> → <code>npm run intake</code>)</p>
+  </section>
+
+  <!-- 5. 워크숍·컨설팅 -->
+  <section class="card" id="sec-activities">
+    <h2><span class="num">5</span>워크숍·컨설팅</h2>
+    <p class="hint">기관명만 적고 내부 대시보드·대외비 링크는 넣지 않음</p>
+    <div class="table-wrap"><table data-table="activities"></table></div>
+    <button class="small add-row" data-add="activities">+ 항목 추가</button>
+  </section>
+</div>
+
+<button class="to-top" id="to-top" aria-label="맨 위로">↑</button>
+
+<script>
+const STORAGE_KEY = "lab-intake-v2"
+const SLUG_RE = /^[a-z]+(-[a-z]+)+$/
+
+const SECTIONS = [
+  ["lab", "랩 기본 정보"], ["professor", "교수 소개"], ["members", "구성원"],
+  ["kci", "KCI 검색 설정"], ["activities", "워크숍·컨설팅"],
+]
+
+// 표 정의: [key, 머리글, 입력 종류]
+const TABLES = {
+  education: [["degree", "학위", ["박사", "석사", "학사"]], ["school", "학교", "text"], ["major", "전공", "text"], ["year", "연도", "text"]],
+  career: [["period", "기간", "text"], ["org", "기관", "text"], ["role", "직위·역할", "text"]],
+  members: [
+    ["name", "이름", "text"], ["slug", "slug", "slug"],
+    ["status", "과정", ["박사과정", "박사 졸업", "석사과정", "석사 졸업", "연구원"]],
+    ["topic", "연구 주제", "text"], ["email", "이메일", "text"], ["photo", "사진 파일명", "text"], ["kciName", "KCI 저자 표기", "text"],
+  ],
+  affiliations: [["name", "기관명", "text"]],
+  activities: [
+    ["type", "유형", ["워크숍", "컨설팅"]], ["title", "제목", "textarea"], ["date", "날짜", "date"],
+    ["org", "기관", "text"], ["desc", "설명", "textarea"], ["link", "링크", "text"],
+  ],
+}
+
+const DEFAULTS = {
+  lab: {
+    name: "Educational Evaluation Lab", nameKo: "", logoText: "Educational Evaluation Lab",
+    affiliation: "한국기술교육대학교 HRD학과",
+    tagline: "교육과 훈련의 효과를 데이터로 검증합니다",
+    taglineSub: "평가 설계부터 인과추론까지, 근거 있는 결정을 돕는 연구실",
+    email: "hjung@koreatech.ac.kr", phone: "041-560-1108", address: "",
+  },
+  professor: {
+    name: "정혜경", slug: "jung-hyekyung", title: "부교수", dept: "한국기술교육대학교 HRD학과",
+    email: "hjung@koreatech.ac.kr", phone: "041-560-1108", photo: "jung-hyekyung.jpg", bio: "",
+    areas: "HRD·직업훈련 정책과 역량평가\n교육평가와 인과추론 방법론 (경향점수매칭, 다층분석, 잠재프로파일분석, BART, SEMtree)\n국제비교교육과 국가수준 학업성취도 평가 (PISA, 표집설계, ILO 협력)",
+    awards: "2021 한국인력개발학회 우수 HRD 논문상 (교신저자)",
+  },
+  education: [
+    { degree: "박사", school: "University of California, Los Angeles", major: "교육학 (양적연구방법)", year: "2010" },
+    { degree: "석사", school: "연세대학교", major: "교육학 (측정 및 평가)", year: "2002" },
+    { degree: "학사", school: "연세대학교", major: "교육학", year: "2000" },
+  ],
+  career: [
+    { period: "2026.02 ~ 현재", org: "한국기술교육대학교 HRD학과", role: "학과장" },
+    { period: "2025.03 ~ 2026.02", org: "한국기술교육대학교 테크노인력개발전문대학원", role: "주임교수" },
+    { period: "2023.09 ~ 2026.02", org: "한국기술교육대학교 데이터성과센터", role: "센터장 (2023.09~2024.02, 2024.09~2026.02)" },
+    { period: "2020.03 ~ 현재", org: "한국기술교육대학교 HRD학과", role: "조교수, 부교수" },
+    { period: "2012.03 ~ 2020.02", org: "한국교육과정평가원", role: "부연구위원, 연구위원" },
+    { period: "2010.09 ~ 2012.02", org: "American Institutes for Research (미국)", role: "Researcher" },
+  ],
+  members: [
+    { name: "박민주", slug: "park-minju", status: "박사 졸업", topic: "", email: "", photo: "", kciName: "" },
+    { name: "윤중헌", slug: "yoon-jungheon", status: "박사 졸업", topic: "", email: "", photo: "", kciName: "" },
+    { name: "유다선", slug: "yu-daseon", status: "박사 졸업", topic: "", email: "", photo: "", kciName: "" },
+    { name: "이수진", slug: "lee-sujin", status: "박사과정", topic: "", email: "", photo: "", kciName: "" },
+    { name: "노창균", slug: "noh-changgyun", status: "박사과정", topic: "", email: "", photo: "", kciName: "" },
+    { name: "권수현", slug: "kwon-suhyeon", status: "박사과정", topic: "", email: "", photo: "", kciName: "" },
+    { name: "김용운", slug: "kim-yongwoon", status: "석사과정", topic: "", email: "", photo: "", kciName: "" },
+  ],
+  kci: { authorName: "정혜경", startYear: "" },
+  affiliations: [
+    { name: "한국기술교육대학교 HRD학과" },
+    { name: "한국기술교육대학교 테크노인력개발전문대학원" },
+    { name: "한국교육과정평가원" },
+  ],
+  activities: [
+    {
+      type: "워크숍", title: "SEM 연구자를 위한 인과추론: AI 시대의 구조적 인과 모델(SCM) 입문",
+      date: "2026-10-16", org: "인하대학교 (2026 글로벌 인문사회융합연구 세미나)",
+      desc: "SCM 개념과 SEM 비교, DAGitty 인과 다이어그램 실습, 사회과학 SCM 적용 사례, 생성형 AI 시대의 Causal AI 동향", link: "",
+    },
+  ],
+  progress: {},
+}
+
+let state = load()
+
+// ---------- 저장소 ----------
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) {
+      const saved = JSON.parse(raw)
+      // lab·professor·kci는 칸 단위로 합쳐, 나중에 추가된 칸도 기본값이 보이게 한다
+      ;["lab", "professor", "kci"].forEach((k) => saved[k] && (saved[k] = { ...DEFAULTS[k], ...saved[k] }))
+      return { ...structuredClone(DEFAULTS), ...saved }
+    }
+  } catch (e) { /* 저장소를 못 쓰면 기본값 */ }
+  return structuredClone(DEFAULTS)
+}
+let saveTimer
+function persist() {
+  clearTimeout(saveTimer)
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+      flash("자동 저장됨 " + new Date().toLocaleTimeString("ko-KR"))
+    } catch (e) { flash("브라우저 저장소를 쓸 수 없음 — '저장'으로 파일을 꼭 내려받기", true) }
+  }, 300)
+}
+function flash(msg, warn) {
+  const el = document.getElementById("status")
+  el.textContent = msg
+  el.style.color = warn ? "var(--warn)" : "var(--ok)"
+}
+
+// ---------- 로마자 (국어의 로마자 표기법 + 흔한 성씨 표기) ----------
+const SURNAME = { 김: "kim", 이: "lee", 박: "park", 정: "jung", 최: "choi", 조: "cho", 강: "kang", 윤: "yoon", 장: "jang",
+  임: "lim", 한: "han", 오: "oh", 서: "seo", 신: "shin", 권: "kwon", 황: "hwang", 안: "ahn", 송: "song", 류: "ryu", 유: "yu",
+  홍: "hong", 전: "jeon", 고: "ko", 문: "moon", 양: "yang", 손: "son", 배: "bae", 백: "baek", 허: "heo", 남: "nam", 노: "noh",
+  심: "shim", 하: "ha", 곽: "kwak", 성: "sung", 차: "cha", 주: "joo", 우: "woo", 구: "koo", 민: "min", 나: "na", 진: "jin" }
+const CHO = ["g","kk","n","d","tt","r","m","b","pp","s","ss","","j","jj","ch","k","t","p","h"]
+const JUNG = ["a","ae","ya","yae","eo","e","yeo","ye","o","wa","wae","oe","yo","u","wo","we","wi","yu","eu","ui","i"]
+const JONG = ["","k","k","k","n","n","n","t","l","k","m","l","l","l","p","l","m","p","p","t","t","ng","t","t","k","t","p","t"]
+function romanizeSyllable(ch) {
+  const code = ch.charCodeAt(0) - 0xac00
+  if (code < 0 || code > 11171) return ""
+  return CHO[Math.floor(code / 588)] + JUNG[Math.floor((code % 588) / 28)] + JONG[code % 28]
+}
+function romanizeName(name) {
+  const n = (name || "").replace(/\s/g, "")
+  if (n.length < 2) return ""
+  const surname = SURNAME[n[0]] || romanizeSyllable(n[0])
+  const given = [...n.slice(1)].map(romanizeSyllable).join("")
+  return surname && given ? surname + "-" + given : ""
+}
+
+// ---------- 화면 그리기 ----------
+function getPath(path) { return path.split(".").reduce((o, k) => (o ? o[k] : ""), state) ?? "" }
+function setPath(path, value) {
+  const keys = path.split(".")
+  let o = state
+  keys.slice(0, -1).forEach((k) => (o = o[k] ??= {}))
+  o[keys.at(-1)] = value
+}
+
+function bindFields() {
+  document.querySelectorAll("[data-path]").forEach((el) => {
+    el.value = getPath(el.dataset.path)
+    validateSlug(el)
+    el.oninput = () => { setPath(el.dataset.path, el.value); validateSlug(el); persist() }
+  })
+}
+function validateSlug(el) {
+  if (!("slug" in el.dataset)) return
+  el.classList.toggle("invalid", el.value !== "" && !SLUG_RE.test(el.value))
+  el.title = el.classList.contains("invalid") ? "소문자 로마자, 성-이름 형식 (예: kwon-suhyeon)" : ""
+}
+
+function renderTable(name) {
+  const table = document.querySelector(`[data-table="${name}"]`)
+  const cols = TABLES[name]
+  const rows = state[name] ??= []
+  table.innerHTML = ""
+  const head = table.insertRow()
+  cols.forEach(([, label]) => { const th = document.createElement("th"); th.textContent = label; head.appendChild(th) })
+  head.appendChild(document.createElement("th"))
+
+  rows.forEach((row, i) => {
+    const tr = table.insertRow()
+    cols.forEach(([key, , kind]) => {
+      const td = tr.insertCell()
+      let input
+      if (Array.isArray(kind)) {
+        input = document.createElement("select")
+        ;["", ...kind].forEach((opt) => input.add(new Option(opt || "선택", opt)))
+      } else if (kind === "textarea") {
+        input = document.createElement("textarea")
+      } else {
+        input = document.createElement("input")
+        input.type = kind === "date" ? "date" : "text"
+        if (kind === "slug") input.dataset.slug = ""
+      }
+      input.value = row[key] ?? ""
+      validateSlug(input)
+      input.oninput = () => {
+        row[key] = input.value
+        validateSlug(input)
+        // 이름을 새로 쓰면 비어 있는 slug를 로마자로 채움
+        if (name === "members" && key === "name") {
+          const slugInput = tr.querySelector("[data-slug]")
+          if (!row.slugEdited) { row.slug = romanizeName(input.value); slugInput.value = row.slug; validateSlug(slugInput) }
+        }
+        if (name === "members" && key === "slug") row.slugEdited = input.value !== ""
+        persist()
+      }
+      td.appendChild(input)
+    })
+    const ctl = tr.insertCell()
+    ctl.className = "ctl"
+    const up = button("↑", () => move(name, i, -1))
+    const del = button("삭제", () => { if (confirm("이 행을 지울까요?")) { rows.splice(i, 1); renderTable(name); persist() } })
+    ctl.append(up, " ", del)
+  })
+}
+function button(text, onClick) {
+  const b = document.createElement("button")
+  b.className = "small"; b.type = "button"; b.textContent = text; b.onclick = onClick
+  return b
+}
+function move(name, i, d) {
+  const rows = state[name]
+  if (i + d < 0 || i + d >= rows.length) return
+  ;[rows[i], rows[i + d]] = [rows[i + d], rows[i]]
+  renderTable(name); persist()
+}
+
+function renderProgress() {
+  const box = document.getElementById("progress")
+  box.innerHTML = "<strong>진행 상황</strong>"
+  SECTIONS.forEach(([key, label]) => {
+    const wrap = document.createElement("label")
+    const cb = document.createElement("input")
+    cb.type = "checkbox"; cb.checked = !!state.progress[key]
+    cb.onchange = () => { state.progress[key] = cb.checked; persist() }
+    const a = document.createElement("a")
+    a.href = "#sec-" + key; a.textContent = label
+    wrap.append(cb, a)
+    box.appendChild(wrap)
+  })
+}
+
+function renderAll() {
+  bindFields()
+  Object.keys(TABLES).forEach(renderTable)
+  renderProgress()
+}
+
+document.querySelectorAll("[data-add]").forEach((b) => {
+  b.onclick = () => {
+    const name = b.dataset.add
+    state[name].push(Object.fromEntries(TABLES[name].map(([k]) => [k, ""])))
+    renderTable(name); persist()
+  }
+})
+
+// ---------- 내보내기: md + csv ----------
+function csvEscape(v) {
+  const s = String(v ?? "")
+  return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s
+}
+function toCsv(name) {
+  const keys = TABLES[name].map(([k]) => k)
+  const lines = [keys.join(",")]
+  state[name].forEach((row) => lines.push(keys.map((k) => csvEscape(row[k])).join(",")))
+  return "﻿" + lines.join("\r\n") + "\r\n"
+}
+function mdLine(key, value) { return `- ${key}: ${String(value ?? "").replace(/\n/g, " ⏎ ")}` }
+function mdTable(name) {
+  const keys = TABLES[name].map(([k]) => k)
+  const cell = (v) => String(v ?? "").replace(/\|/g, "\\|").replace(/\n/g, " ⏎ ")
+  return [
+    "| " + keys.join(" | ") + " |",
+    "|" + keys.map(() => "---").join("|") + "|",
+    ...state[name].map((r) => "| " + keys.map((k) => cell(r[k])).join(" | ") + " |"),
+  ].join("\n")
+}
+function toMd() {
+  const block = (title, obj) => [`## ${title}`, "", ...Object.entries(obj).map(([k, v]) => mdLine(k, v)), ""].join("\n")
+  return [
+    "# 연구실 사이트 입력 (lab-intake)",
+    "",
+    `<!-- 생성: ${new Date().toISOString()} · lab-intake.html에서 다시 불러올 수 있음 -->`,
+    "",
+    block("lab", state.lab),
+    block("professor", state.professor),
+    "## education", "", mdTable("education"), "",
+    "## career", "", mdTable("career"), "",
+    block("kci", state.kci),
+    "## affiliations", "", mdTable("affiliations"), "",
+  ].join("\n")
+}
+function download(filename, text, type) {
+  const blob = new Blob([text], { type })
+  const a = document.createElement("a")
+  a.href = URL.createObjectURL(blob); a.download = filename
+  document.body.appendChild(a); a.click(); a.remove()
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000)
+}
+document.getElementById("btn-save").onclick = async () => {
+  const bad = state.members.filter((m) => m.slug && !SLUG_RE.test(m.slug)).map((m) => m.name)
+  if (bad.length && !confirm("slug 형식이 맞지 않는 구성원: " + bad.join(", ") + "\n그래도 저장할까요?")) return
+  const files = [
+    ["lab-content.md", toMd(), "text/markdown;charset=utf-8"],
+    ["members.csv", toCsv("members"), "text/csv;charset=utf-8"],
+    ["activities.csv", toCsv("activities"), "text/csv;charset=utf-8"],
+  ]
+  for (const [f, t, type] of files) { download(f, t, type); await new Promise((r) => setTimeout(r, 250)) }
+  flash("파일 3개를 내려받음 — 다운로드 폴더에서 lab_site/_intake/로 옮기기")
+}
+
+// ---------- 불러오기 ----------
+function parseCsv(text) {
+  text = text.replace(/^﻿/, "")
+  const rows = []; let row = []; let cur = ""; let q = false
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i]
+    if (q) {
+      if (c === '"' && text[i + 1] === '"') { cur += '"'; i++ }
+      else if (c === '"') q = false
+      else cur += c
+    } else if (c === '"') q = true
+    else if (c === ",") { row.push(cur); cur = "" }
+    else if (c === "\n" || c === "\r") {
+      if (c === "\r" && text[i + 1] === "\n") i++
+      row.push(cur); rows.push(row); row = []; cur = ""
+    } else cur += c
+  }
+  if (cur !== "" || row.length) { row.push(cur); rows.push(row) }
+  const [head, ...body] = rows.filter((r) => r.some((v) => v !== ""))
+  return body.map((r) => Object.fromEntries(head.map((k, i) => [k, r[i] ?? ""])))
+}
+function parseMd(text) {
+  const out = {}
+  let section = null
+  let tableKeys = null
+  const unescape = (v) => v.replace(/ ⏎ /g, "\n").trim()
+  text.split(/\r?\n/).forEach((line) => {
+    const h = line.match(/^## (\w+)/)
+    if (h) { section = h[1]; tableKeys = null; return }
+    if (!section) return
+    const kv = line.match(/^- (\w+): ?(.*)$/)
+    if (kv) { (out[section] ??= {})[kv[1]] = unescape(kv[2]); return }
+    if (line.startsWith("|")) {
+      const cells = line.slice(1, -1).split(/(?<!\\)\|/).map((c) => unescape(c.replace(/\\\|/g, "|")))
+      if (!tableKeys) { tableKeys = cells; out[section] = []; return }
+      if (cells.every((c) => /^-+$/.test(c))) return
+      out[section].push(Object.fromEntries(tableKeys.map((k, i) => [k, cells[i] ?? ""])))
+    }
+  })
+  return out
+}
+document.getElementById("btn-load").onclick = () => document.getElementById("file-load").click()
+document.getElementById("file-load").onchange = async (e) => {
+  const loaded = []
+  for (const file of e.target.files) {
+    const text = await file.text()
+    const base = file.name.replace(/\.(md|csv)$/i, "").replace(/\s*\(\d+\)$/, "")
+    if (/\.md$/i.test(file.name)) {
+      const md = parseMd(text)
+      ;["lab", "professor", "kci"].forEach((k) => md[k] && (state[k] = { ...state[k], ...md[k] }))
+      ;["education", "career", "affiliations"].forEach((k) => Array.isArray(md[k]) && (state[k] = md[k]))
+      loaded.push(file.name)
+    } else if (TABLES[base]) {
+      state[base] = parseCsv(text).map((r) => (base === "members" ? { ...r, slugEdited: true } : r))
+      loaded.push(file.name)
+    }
+  }
+  e.target.value = ""
+  renderAll(); persist()
+  flash(loaded.length ? "불러옴: " + loaded.join(", ") : "알아볼 수 있는 파일이 없음 (lab-content.md, members.csv 등)", !loaded.length)
+}
+
+document.getElementById("btn-reset").onclick = () => {
+  if (!confirm("입력한 내용을 모두 지우고 기본값으로 되돌릴까요? (내려받은 파일은 그대로)")) return
+  state = structuredClone(DEFAULTS)
+  renderAll(); persist()
+}
+
+// ---------- 맨 위로 ----------
+const toTop = document.getElementById("to-top")
+addEventListener("scroll", () => toTop.classList.toggle("show", scrollY > 600))
+toTop.onclick = () => scrollTo({ top: 0, behavior: "smooth" })
+
+renderAll()
+</script>
+</body>
+</html>

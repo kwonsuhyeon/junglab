@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "causal-inference",
+    "name": "인과추론",
+    "description": "관찰 자료에서 교육·훈련의 효과를 추정하는 방법을 연구",
+    "topics": ["구조방정식(SEM)", "다층모형", "경향점수추정", "표집설계", "인과 그래프(DAG)"],
+    "criteria": "SEM·다층모형·경향점수·BART 등으로 효과를 추정하거나, 표집·가중치 설계를 다루는 연구",
+    "links": [{ "label": "DAGitty", "href": "https://www.dagitty.net/" }]
+  },
+  {
+    "slug": "statistical-modeling",
+    "name": "통계모형 적용",
+    "description": "잠재프로파일·잠재전이·구조모형을 교육과 조직 자료에 적용",
+    "topics": ["잠재프로파일분석", "잠재전이분석", "매개·조절효과", "종단분석"],
+    "criteria": "특정 통계모형을 실제 교육·조직 자료에 적용해 유형이나 구조적 관계를 밝히는 연구",
+    "links": []
+  },
+  {
+    "slug": "education-training-policy",
+    "name": "교육훈련정책연구",
+    "description": "교육·훈련 정책과 사업의 성과를 분석하고 개선 방안을 제안",
+    "topics": ["정책 성과분석", "실태조사", "사업 효과 분석"],
+    "criteria": "정부·공공기관의 교육훈련 정책이나 사업의 실태와 성과를 다루는 연구",
+    "links": []
+  },
+  {
+    "slug": "ai-learning-analytics",
+    "name": "AI 데이터 학습분석",
+    "description": "학습 데이터와 생성형 AI를 활용한 예측·분석·교수학습 연구",
+    "topics": ["학업성취 예측", "학습 로그 분석", "생성형 AI 활용 교육"],
+    "criteria": "기계학습 예측, 학습 데이터 분석, 생성형 AI를 교육에 쓰는 연구",
+    "links": []
+  },
+  {
+    "slug": "vocational-training",
+    "name": "직업훈련",
+    "description": "직업능력개발훈련과 훈련교사 역량을 다루는 연구",
+    "topics": ["훈련교사 역량", "훈련기관 성과", "직업능력개발사업"],
+    "criteria": "직업능력개발훈련, 훈련교사·기관, 고용노동 분야 과제(고직능연·능개원 등)",
+    "links": []
+  },
+  {
+    "slug": "higher-education",
+    "name": "고등교육",
+    "description": "대학의 입학·학업성취·성과관리를 데이터로 분석",
+    "topics": ["기초학력평가", "대학입학전형", "대학 IR·성과분석"],
+    "criteria": "대학생 학업성취, 입학 연구, 데이터성과센터 과제 등 고등교육 기관 대상 연구",
+    "links": []
+  },
+  {
+    "slug": "oda",
+    "name": "ODA",
+    "description": "개발도상국 직업교육훈련(TVET) 협력 연구",
+    "topics": ["ILO 협력", "TVET"],
+    "criteria": "ILO·국제개발협력 사업으로 수행한 TVET 연구",
+    "links": []
+  }
+]

@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연구 목록 편집</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root {
+    --bg: #f9f9f7;
+    --card: #ffffff;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --accent: #2a78d6;
+    --accent-soft: #eaf2fc;
+    --warn: #eb6834;
+    --ok: #16a34a;
+    --hidden-row: #f3f4f6;
+    --radius: 12px;
+    --page-width: 1600px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: Pretendard, -apple-system, "Malgun Gothic", sans-serif; font-size: 15px; line-height: 1.55;
+  }
+  .page { max-width: var(--page-width); margin: 0 auto; padding: 24px 16px 96px; }
+  header.top {
+    position: sticky; top: 0; z-index: 10; background: var(--bg);
+    border-bottom: 1px solid var(--line); padding: 14px 0 12px; margin-bottom: 20px;
+  }
+  header.top .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+  h1 { font-size: 22px; margin: 0; }
+  .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  button {
+    font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--card);
+    border-radius: 8px; padding: 7px 12px; cursor: pointer; color: var(--text);
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  button.danger { color: var(--warn); }
+  button.small { padding: 3px 9px; font-size: 13px; }
+  button:hover { filter: brightness(0.97); }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 10px; font-size: 14px; }
+  .toolbar input[type=search] { width: 320px; max-width: 100%; }
+  .toolbar a { color: var(--text); text-decoration: none; }
+  .toolbar a:hover { color: var(--accent); }
+  .status { font-size: 13px; color: var(--ok); min-height: 18px; }
+  section.card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 24px; margin-bottom: 18px; scroll-margin-top: 150px;
+  }
+  section.card h2 { display: flex; align-items: center; gap: 10px; font-size: 18px; margin: 0 0 4px; }
+  section.card h2 .num {
+    display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-size: 13px;
+  }
+  section.card h2 .count { color: var(--muted); font-size: 14px; font-weight: 500; }
+  .hint { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+  .hint code { background: var(--accent-soft); padding: 0 4px; border-radius: 4px; }
+  input[type=text], input[type=search], select, textarea {
+    width: 100%; font: inherit; font-size: 14px; padding: 7px 9px;
+    border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--text);
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  input.invalid { border-color: var(--warn); background: #fff5f0; }
+  textarea { min-height: 38px; resize: vertical; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 6px; text-align: left; vertical-align: middle; }
+  th { font-size: 13px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  td input, td select, td textarea { min-width: 80px; }
+  td.w-title textarea { min-width: 300px; }
+  td.w-summary textarea { min-width: 260px; }
+  td.w-authors input { min-width: 180px; }
+  td.ctl { width: 1%; white-space: nowrap; }
+  td.id { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  tr.off td { background: var(--hidden-row); }
+  .areas { display: grid; grid-template-columns: repeat(2, max-content); gap: 1px 10px; font-size: 12px; }
+  .areas label, .check { display: inline-flex; gap: 4px; align-items: center; white-space: nowrap; cursor: pointer; }
+  .add-row { margin-top: 8px; }
+  .members { font-size: 13px; color: var(--muted); }
+  .to-top {
+    position: fixed; right: 22px; bottom: 22px; width: 46px; height: 46px; border-radius: 50%;
+    background: #111; color: #fff; border: none; font-size: 20px; cursor: pointer;
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .to-top.show { opacity: 1; pointer-events: auto; }
+  input[type=file] { display: none; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div class="row">
+      <div>
+        <h1>연구 목록 편집</h1>
+        <div class="sub">입력하는 대로 이 브라우저에 자동 저장됨 · "저장"을 누르면 csv 3개를 내려받음 → <code>lab_site/_intake/</code>에 넣고 <code>npm run intake</code></div>
+      </div>
+      <div class="actions">
+        <button class="primary" id="btn-save">저장 (csv 3개)</button>
+        <button id="btn-load">불러오기</button>
+        <button class="danger" id="btn-reset">입력 초기화</button>
+        <input type="file" id="file-load" multiple accept=".csv">
+      </div>
+    </div>
+    <div class="toolbar">
+      <input type="search" id="search" placeholder="제목·학술지·참여자 검색">
+      <a href="#sec-publications">1 논문·저서</a>
+      <a href="#sec-reports">2 연구보고서</a>
+      <a href="#sec-theses">3 학위논문</a>
+    </div>
+    <div class="status" id="status"></div>
+  </header>
+
+  <p class="members" id="members"></p>
+
+  <section class="card" id="sec-publications">
+    <h2><span class="num">1</span>논문·저서 <span class="count" data-count="publications"></span></h2>
+    <p class="hint">참여자는 저자 순서대로 쉼표로 구분 · 구성원 이름과 같으면 사이트에서 About 카드로 연결 · "표시"를 끄면 사이트에서 숨김 · id는 바꾸지 않기(KCI 재수집 때 기준)</p>
+    <div class="table-wrap"><table data-table="publications"></table></div>
+    <button class="small add-row" data-add="publications">+ 논문 추가</button>
+  </section>
+
+  <section class="card" id="sec-reports">
+    <h2><span class="num">2</span>연구보고서 <span class="count" data-count="reports"></span></h2>
+    <p class="hint">참여자는 쉼표로 구분 · 원문 링크 칸에 <code>.pdf</code> 파일명을 쓰면 원문 PDF로, URL을 쓰면 외부 링크로 나옴</p>
+    <div class="table-wrap"><table data-table="reports"></table></div>
+    <button class="small add-row" data-add="reports">+ 보고서 추가</button>
+  </section>
+
+  <section class="card" id="sec-theses">
+    <h2><span class="num">3</span>학위논문 <span class="count" data-count="theses"></span></h2>
+    <p class="hint">제목이 빈 행은 사이트에 나오지 않음 · 원문 링크는 RISS·dCollection 등</p>
+    <div class="table-wrap"><table data-table="theses"></table></div>
+    <button class="small add-row" data-add="theses">+ 학위논문 추가</button>
+  </section>
+</div>
+
+<button class="to-top" id="to-top" aria-label="맨 위로">↑</button>
+
+<script>
+const STORAGE_KEY = "research-edit-v1"
+const AREAS = ["인과추론","통계모형 적용","교육훈련정책연구","AI 데이터 학습분석","직업훈련","고등교육","ODA"]
+const MEMBER_NAMES = ["정혜경","박민주","윤중헌","유다선","이수진","노창균","권수현","김용운"]
+
+// 표 정의: [key, 머리글, 입력 종류, 칸 class]
+const TABLES = {
+  publications: [
+    ["id", "id", "readonly", "id"], ["show", "표시", "check"],
+    ["type", "유형", ["논문", "저서"]], ["title", "제목", "textarea", "w-title"],
+    ["journal", "학술지·출판사", "text"], ["volume", "권호", "text"], ["date", "발행(YYYY.MM)", "text"],
+    ["role", "교수 역할", ["책임", "교신", "공동", "공동집필"]], ["authors", "참여자", "text", "w-authors"],
+    ["areas", "분야", "areas"], ["doi", "DOI", "text"], ["link", "원문 링크·PDF", "text"],
+    ["summary", "요약 (2~3문장)", "textarea", "w-summary"],
+  ],
+  reports: [
+    ["title", "제목", "textarea", "w-title"], ["client", "발주기관", "text"], ["year", "연도", "text"],
+    ["period", "기간", "text"], ["role", "교수 역할", ["연구책임자", "공동연구원"]],
+    ["status", "상태", ["완료", "진행 중", "예정"]], ["participants", "참여자", "text", "w-authors"],
+    ["areas", "분야", "areas"], ["link", "원문 링크 또는 PDF 파일명", "text"],
+  ],
+  theses: [
+    ["author", "저자", "text"], ["title", "제목", "textarea", "w-title"], ["degree", "학위", ["박사", "석사"]],
+    ["school", "학교", "text"], ["year", "연도", "text"], ["link", "원문 링크", "text"],
+  ],
+}
+
+const DEFAULTS = {
+  "publications": [
+    {
+      "id": "cv-01",
+      "show": "Y",
+      "type": "논문",
+      "title": "Health-related quality of life in adolescents and young adults with and without cancer, using propensity score matching",
+      "journal": "Journal of Cancer Survivorship",
+      "volume": "",
+      "date": "2021.11",
+      "role": "공동",
+      "authors": "정혜경",
+      "areas": "인과추론 / 통계모형 적용",
+      "doi": "10.1007/s11764-021-01150-3",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-02",
+      "show": "Y",
+      "type": "논문",
+      "title": "여성 관리자의 직장만족도 변화 양상에 대한 잠재전이분석: 조직문화의 영향",
+      "journal": "직업능력개발연구",
+      "volume": "",
+      "date": "2026.03",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "통계모형 적용",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-03",
+      "show": "Y",
+      "type": "논문",
+      "title": "초등교원임용시험 대비 LLM 기반 영어 문항 생성기에 대한 예비교사의 인식 조사",
+      "journal": "교육문화연구",
+      "volume": "",
+      "date": "2026.02",
+      "role": "공동",
+      "authors": "정혜경",
+      "areas": "AI 데이터 학습분석",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-04",
+      "show": "Y",
+      "type": "논문",
+      "title": "직업능력개발훈련교사 역량에 따른 잠재프로파일분석: 자격교육과정 중심으로",
+      "journal": "실천공학교육논문지",
+      "volume": "",
+      "date": "2025.12",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "통계모형 적용 / 직업훈련",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-05",
+      "show": "Y",
+      "type": "논문",
+      "title": "스마트폰 의존도의 매개효과 분석 사례를 중심으로 한 DAG 기반 인과모형과 SEM 비교",
+      "journal": "교육문화연구",
+      "volume": "",
+      "date": "2025.12",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "인과추론",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-06",
+      "show": "Y",
+      "type": "논문",
+      "title": "LMX와 직무성과의 관계: 직원몰입 잠재프로파일을 매개로 한 직·간접효과 분석",
+      "journal": "평생교육·HRD연구",
+      "volume": "",
+      "date": "2025.10",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "통계모형 적용",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-07",
+      "show": "Y",
+      "type": "논문",
+      "title": "직업능력개발훈련교사 역량기반 향상교육과정 개선 방안 연구",
+      "journal": "실천공학교육논문지",
+      "volume": "",
+      "date": "2025.08",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "직업훈련",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-08",
+      "show": "Y",
+      "type": "논문",
+      "title": "교사의 상상대로: 바이브 코딩을 활용한 영어 교육용 앱 개발",
+      "journal": "영어교과교육",
+      "volume": "",
+      "date": "2025.08",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "AI 데이터 학습분석",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-09",
+      "show": "Y",
+      "type": "논문",
+      "title": "랜덤 포레스트와 SMOTE 기법을 활용한 대학생 학습성공 및 학습부진 예측 모델 연구 사례",
+      "journal": "교육평가연구",
+      "volume": "",
+      "date": "2024.12",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "AI 데이터 학습분석 / 고등교육",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-10",
+      "show": "Y",
+      "type": "논문",
+      "title": "2단계 층화군집 계통표본추출 설계 사례: 학생맞춤지원 실태조사를 중심으로",
+      "journal": "교육평가연구",
+      "volume": "",
+      "date": "2024.09",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "인과추론 / 교육훈련정책연구",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-11",
+      "show": "Y",
+      "type": "논문",
+      "title": "조직지원인식, 직원몰입, 지식공유의도, 적응수행 간의 구조적 관계: 경찰공무원을 중심으로",
+      "journal": "한국치안행정논집",
+      "volume": "",
+      "date": "2024.05",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "통계모형 적용",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-12",
+      "show": "Y",
+      "type": "논문",
+      "title": "디지털전환 시대의 직업훈련 교·강사 역량체계 개발 연구",
+      "journal": "직업교육연구",
+      "volume": "",
+      "date": "2024.03",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "직업훈련",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-13",
+      "show": "Y",
+      "type": "논문",
+      "title": "경향점수를 활용한 사내 플랫폼 지식공유가 개인의 직무만족과 조직문화 인식에 미치는 인과효과 추정",
+      "journal": "한국콘텐츠학회논문지",
+      "volume": "",
+      "date": "2024.02",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "인과추론",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-14",
+      "show": "Y",
+      "type": "논문",
+      "title": "사업주 직업능력개발사업 참여 기업 및 개인의 특성과 성과에 관한 연구",
+      "journal": "직업능력개발연구",
+      "volume": "",
+      "date": "2023.11",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "직업훈련 / 교육훈련정책연구",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-15",
+      "show": "Y",
+      "type": "논문",
+      "title": "공학계열 대학생 물리 기초학력평가 문항분석 및 성취수준 설정 사례연구",
+      "journal": "공학교육연구",
+      "volume": "",
+      "date": "2023.11",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "고등교육",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-16",
+      "show": "Y",
+      "type": "논문",
+      "title": "내용중심 영어 교수 학습의 도구로서 ChatGPT의 활용 가능성 탐색",
+      "journal": "영어교과교육",
+      "volume": "",
+      "date": "2023.02",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "AI 데이터 학습분석",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-17",
+      "show": "Y",
+      "type": "논문",
+      "title": "직업훈련교사의 디지털 역량 측정 설문도구 개발 연구",
+      "journal": "직업교육연구",
+      "volume": "",
+      "date": "2023.02",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "직업훈련",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-18",
+      "show": "Y",
+      "type": "논문",
+      "title": "관계지향 문화, 인적자원개발의 중요성 인식, 조직몰입 간의 구조적 관계: MZ세대 여부에 따른 조건부 직간접 효과",
+      "journal": "HRD연구",
+      "volume": "",
+      "date": "2023.02",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "통계모형 적용",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-19",
+      "show": "Y",
+      "type": "논문",
+      "title": "국내의 전기직종 직업훈련에 관한 통합적 문헌 연구",
+      "journal": "직업교육연구",
+      "volume": "",
+      "date": "2023.02",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "직업훈련",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-20",
+      "show": "Y",
+      "type": "논문",
+      "title": "대학생 기초학력평가 수학교과 문항 분석 및 성취수준 설정 사례 연구",
+      "journal": "교육문화연구",
+      "volume": "",
+      "date": "2023.02",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "고등교육",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-21",
+      "show": "Y",
+      "type": "논문",
+      "title": "인공지능 생성 지문에 대한 예비교사 인식 조사 연구",
+      "journal": "이중언어학",
+      "volume": "",
+      "date": "2022.12",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "AI 데이터 학습분석",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-22",
+      "show": "Y",
+      "type": "논문",
+      "title": "SEMtree를 활용한 우리나라 청소년의 창의성 성장 모형 분석 사례 연구",
+      "journal": "교육평가연구",
+      "volume": "",
+      "date": "2022.12",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "인과추론 / 통계모형 적용",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-23",
+      "show": "Y",
+      "type": "논문",
+      "title": "직업능력개발훈련 교·강사 역량 설문조사 도구 개발 및 요인분석을 통한 타당화 연구",
+      "journal": "HRD연구",
+      "volume": "",
+      "date": "2022.08",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "직업훈련",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-24",
+      "show": "Y",
+      "type": "논문",
+      "title": "BART 기반 기계학습 인과효과 추정 사례 연구",
+      "journal": "교육평가연구",
+      "volume": "",
+      "date": "2022.06",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "인과추론",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-25",
+      "show": "Y",
+      "type": "논문",
+      "title": "Different Role Between Academic Self-Concept and Self-Efficacy in the Big-Fish-Little-Pond Effect",
+      "journal": "교육학연구",
+      "volume": "",
+      "date": "2022.05",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "통계모형 적용",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-26",
+      "show": "Y",
+      "type": "논문",
+      "title": "A Simulation Study for Examining Roles of Sampling Weight in Multilevel Analysis with data from a Complex Survey Design",
+      "journal": "교육학연구",
+      "volume": "",
+      "date": "2021.11",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "인과추론",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-27",
+      "show": "Y",
+      "type": "논문",
+      "title": "기관패널 표집설계를 통한 훈련 교·강사 실태조사 방안 연구",
+      "journal": "실천공학교육논문지",
+      "volume": "",
+      "date": "2021.08",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "인과추론 / 직업훈련",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-28",
+      "show": "Y",
+      "type": "논문",
+      "title": "잠재프로파일분석을 통한 중학교 과학 학생 성취특성 분석",
+      "journal": "교육과정평가연구",
+      "volume": "",
+      "date": "2021.05",
+      "role": "책임",
+      "authors": "정혜경",
+      "areas": "통계모형 적용",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-29",
+      "show": "Y",
+      "type": "논문",
+      "title": "잠재프로파일분석을 통한 성인 근로자의 경력역량 유형 분류 및 유형별 특성 분석",
+      "journal": "Andragogy Today",
+      "volume": "",
+      "date": "2021.02",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "통계모형 적용",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-30",
+      "show": "Y",
+      "type": "논문",
+      "title": "기업의 인적자원개발투자가 조직성과에 미치는 영향에 대한 종단연구",
+      "journal": "HRD연구",
+      "volume": "",
+      "date": "2021.02",
+      "role": "교신",
+      "authors": "정혜경",
+      "areas": "통계모형 적용 / 교육훈련정책연구",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    },
+    {
+      "id": "cv-book-01",
+      "show": "Y",
+      "type": "저서",
+      "title": "디지털시대의 인공지능과 교육",
+      "journal": "학지사",
+      "volume": "",
+      "date": "2024",
+      "role": "공동집필",
+      "authors": "정혜경",
+      "areas": "AI 데이터 학습분석",
+      "doi": "",
+      "link": "",
+      "summary": ""
+    }
+  ],
+  "reports": [
+    {
+      "title": "AI·빅데이터 기반 직업훈련기관 프로파일링 및 성과편차 분석체계 고도화 방안 연구",
+      "client": "한국기술교육대학교 고용직업능력개발센터",
+      "year": "2025",
+      "period": "2025.10 ~ 2026.01",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "직업훈련 / AI 데이터 학습분석",
+      "link": ""
+    },
+    {
+      "title": "[직업계고 채용연계형 직무교육과정 지원사업] 취업 성과창출 및 취업 유지 방안 연구",
+      "client": "대한상공회의소",
+      "year": "2025",
+      "period": "2025.10 ~ 2026.02",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구 / 직업훈련",
+      "link": ""
+    },
+    {
+      "title": "직업능력개발훈련교사 역량 기반 교직훈련과정 개편 방안 연구",
+      "client": "한국기술교육대학교 능력개발교육원",
+      "year": "2025",
+      "period": "2025.05 ~ 2025.07",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "직업훈련",
+      "link": ""
+    },
+    {
+      "title": "AIDT 교육자료 효과성 및 활용 방안 연구",
+      "client": "한국교과서재단",
+      "year": "2025",
+      "period": "2025.08 ~ 2026.03",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "AI 데이터 학습분석 / 교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "고교교육과정 변화에 따른 2028학년도 대학입학전형 개발 연구",
+      "client": "한국기술교육대학교",
+      "year": "2025",
+      "period": "2025.09 ~ 2025.12",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "고등교육",
+      "link": ""
+    },
+    {
+      "title": "대학교육 통합성과관리체계를 위한 대학 IR시스템 개선 연구",
+      "client": "한국기술교육대학교",
+      "year": "2025",
+      "period": "2025.08 ~ 2026.01",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "고등교육",
+      "link": ""
+    },
+    {
+      "title": "기초학력평가 기반 학업성취예측모델 개발 및 활용 연구",
+      "client": "한국기술교육대학교",
+      "year": "2025",
+      "period": "2025.08 ~ 2026.01",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "고등교육 / AI 데이터 학습분석",
+      "link": ""
+    },
+    {
+      "title": "신병 정신전력교육효과 분석",
+      "client": "국방정신전력원",
+      "year": "2025",
+      "period": "2025.04 ~ 2025.11",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "2025 고교학점제 운영 현장 모니터링 및 과제 발굴",
+      "client": "한국교육과정평가원",
+      "year": "2025",
+      "period": "2025.04 ~ 2025.12",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "직업계고 채용연계형 직무교육과정 지원사업 취업활성화를 위한 성과분석 및 발전방안 연구",
+      "client": "대한상공회의소",
+      "year": "2024",
+      "period": "2024.11 ~ 2025.02",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구 / 직업훈련",
+      "link": ""
+    },
+    {
+      "title": "고교생 맞춤형 고용서비스 고졸인재성장로드맵 구축연구",
+      "client": "고용노동부",
+      "year": "2024",
+      "period": "2024.05 ~ 2024.12",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "실감형 디지털 정신전력교육 실태 및 개선 방안 연구",
+      "client": "국방정신전력원",
+      "year": "2024",
+      "period": "2024.05 ~ 2024.12",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "학생맞춤지원 실태조사 표본설계 연구",
+      "client": "한국교육개발원",
+      "year": "2023",
+      "period": "2023.11 ~ 2024.03",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "인과추론 / 교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "직업능력개발훈련교사 자격 등급별 역량기반 향상훈련과정 교과목 개선 방안",
+      "client": "한국기술교육대학교 능력개발교육원",
+      "year": "2023",
+      "period": "2023.11 ~ 2024.02",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "직업훈련",
+      "link": ""
+    },
+    {
+      "title": "군 내 인성교육 프로그램 간 효과성 비교연구",
+      "client": "국방부",
+      "year": "2022",
+      "period": "2022.08 ~ 2022.12",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "2022년 단계적 적응형 세종한국어평가(SKA) 연구 및 개발",
+      "client": "세종학당재단",
+      "year": "2022",
+      "period": "2022.03 ~ 2022.12",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "통계모형 적용",
+      "link": ""
+    },
+    {
+      "title": "기초학력평가 문항분석 및 성취수준 설정",
+      "client": "한국기술교육대학교",
+      "year": "2021",
+      "period": "2021.05 ~ 2022.01",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "고등교육",
+      "link": ""
+    },
+    {
+      "title": "초중등 학생평가 컨설팅 및 과정중심 피드백 자료 개발",
+      "client": "한국과학창의재단",
+      "year": "2021",
+      "period": "2021.05 ~ 2021.09",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "직업능력개발훈련 교·강사 패널조사 심층분석 및 운영방안 연구",
+      "client": "한국기술교육대학교 고용직업능력개발센터",
+      "year": "2021",
+      "period": "2021.05 ~ 2021.12",
+      "role": "연구책임자",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "직업훈련",
+      "link": ""
+    },
+    {
+      "title": "교육 분야 양극화 추이 분석 연구(II)",
+      "client": "한국교육개발원",
+      "year": "2021",
+      "period": "2021.03 ~ 2021.10",
+      "role": "공동연구원",
+      "status": "완료",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구 / 통계모형 적용",
+      "link": ""
+    },
+    {
+      "title": "'26 정신전력 지수측정",
+      "client": "국방정신전력원",
+      "year": "2026",
+      "period": "2026.05 ~ 2026.12",
+      "role": "공동연구원",
+      "status": "진행 중",
+      "participants": "정혜경",
+      "areas": "교육훈련정책연구",
+      "link": ""
+    },
+    {
+      "title": "직업기초능력 평가제도 도입을 위한 연구",
+      "client": "한국기술교육대학교 고용직능센터",
+      "year": "2026",
+      "period": "2026.05 ~ 2026.12",
+      "role": "공동연구원",
+      "status": "예정",
+      "participants": "정혜경",
+      "areas": "직업훈련",
+      "link": ""
+    }
+  ],
+  "theses": [
+    {
+      "author": "윤중헌",
+      "title": "고등교육 맞춤형 학습 지원을 위한 데이터 기반 혼합효과 머신러닝 예측모형 학습 및 평가",
+      "degree": "박사",
+      "school": "한국기술교육대학교",
+      "year": "2026",
+      "link": ""
+    },
+    {
+      "author": "유다선",
+      "title": "직업훈련에서의 생성형 AI-인간 협업 평가에 대한 탐색적 접근",
+      "degree": "박사",
+      "school": "한국기술교육대학교",
+      "year": "2026",
+      "link": ""
+    },
+    {
+      "author": "노창균",
+      "title": "잠재 프로파일 분석(LPA)을 활용한 과학기술 연구개발인력의 경력만족 유형 및 관련 요인에 관한 연구",
+      "degree": "석사",
+      "school": "한국기술교육대학교",
+      "year": "2026",
+      "link": ""
+    },
+    {
+      "author": "권수현",
+      "title": "AI를 활용한 프로그래밍 교육의 통합적 문헌 고찰",
+      "degree": "석사",
+      "school": "한국기술교육대학교",
+      "year": "2026",
+      "link": ""
+    },
+    {
+      "author": "이수진",
+      "title": "조직구성원의 리더-구성원 교환관계(LMX), 직원몰입, 직무성과 간의 구조적 관계",
+      "degree": "석사",
+      "school": "한국기술교육대학교",
+      "year": "2024",
+      "link": ""
+    },
+    {
+      "author": "박민주",
+      "title": "사업주 직업능력개발사업 지속적 참여 집단의 특성 및 성과 분석 연구",
+      "degree": "박사",
+      "school": "한국기술교육대학교",
+      "year": "2023",
+      "link": ""
+    }
+  ]
+}
+
+let state = load()
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) return { ...structuredClone(DEFAULTS), ...JSON.parse(raw) }
+  } catch (e) { /* 저장소를 못 쓰면 기본값 */ }
+  return structuredClone(DEFAULTS)
+}
+let saveTimer
+function persist() {
+  clearTimeout(saveTimer)
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+      flash("자동 저장됨 " + new Date().toLocaleTimeString("ko-KR"))
+    } catch (e) { flash("브라우저 저장소를 쓸 수 없음 — '저장'으로 파일을 꼭 내려받기", true) }
+  }, 300)
+}
+function flash(msg, warn) {
+  const el = document.getElementById("status")
+  el.textContent = msg
+  el.style.color = warn ? "var(--warn)" : "var(--ok)"
+}
+
+// ---------- 분야: "인과추론 / 통계모형 적용" 문자열 <-> 체크박스 ----------
+const splitAreas = (v) => String(v ?? "").split(/[\/,·]/).map((s) => s.trim()).filter(Boolean)
+function areasCell(row, key) {
+  const box = document.createElement("div")
+  box.className = "areas"
+  const picked = new Set(splitAreas(row[key]))
+  AREAS.forEach((name) => {
+    const label = document.createElement("label")
+    const cb = document.createElement("input")
+    cb.type = "checkbox"; cb.checked = picked.has(name)
+    cb.onchange = () => {
+      cb.checked ? picked.add(name) : picked.delete(name)
+      row[key] = AREAS.filter((a) => picked.has(a)).join(" / ")
+      persist()
+    }
+    label.append(cb, name)
+    box.appendChild(label)
+  })
+  return box
+}
+
+// ---------- 표 그리기 ----------
+const query = () => document.getElementById("search").value.trim().toLowerCase()
+function matches(row) {
+  const q = query()
+  return !q || Object.values(row).some((v) => String(v ?? "").toLowerCase().includes(q))
+}
+
+function renderTable(name) {
+  const table = document.querySelector(`[data-table="${name}"]`)
+  const cols = TABLES[name]
+  const rows = state[name] ??= []
+  table.innerHTML = ""
+  const head = table.insertRow()
+  cols.forEach(([, label]) => { const th = document.createElement("th"); th.textContent = label; head.appendChild(th) })
+  head.appendChild(document.createElement("th"))
+
+  let shown = 0
+  rows.forEach((row, i) => {
+    if (!matches(row)) return
+    shown++
+    const tr = table.insertRow()
+    if (name === "publications" && row.show === "N") tr.className = "off"
+    cols.forEach(([key, , kind, cls]) => {
+      const td = tr.insertCell()
+      if (cls) td.className = cls
+      if (kind === "readonly") { td.textContent = row[key] ?? ""; return }
+      if (kind === "areas") { td.appendChild(areasCell(row, key)); return }
+      if (kind === "check") {
+        const label = document.createElement("label")
+        label.className = "check"
+        const cb = document.createElement("input")
+        cb.type = "checkbox"; cb.checked = row[key] !== "N"
+        cb.onchange = () => { row[key] = cb.checked ? "Y" : "N"; tr.className = cb.checked ? "" : "off"; persist() }
+        label.appendChild(cb)
+        td.appendChild(label)
+        return
+      }
+      let input
+      if (Array.isArray(kind)) {
+        input = document.createElement("select")
+        ;["", ...kind].forEach((opt) => input.add(new Option(opt || "선택", opt)))
+      } else if (kind === "textarea") {
+        input = document.createElement("textarea")
+      } else {
+        input = document.createElement("input")
+        input.type = "text"
+      }
+      input.value = row[key] ?? ""
+      input.oninput = () => { row[key] = input.value; persist() }
+      td.appendChild(input)
+    })
+    const ctl = tr.insertCell()
+    ctl.className = "ctl"
+    const del = button("삭제", () => { if (confirm("이 행을 지울까요?")) { rows.splice(i, 1); renderTable(name); persist() } })
+    ctl.append(del)
+  })
+  document.querySelector(`[data-count="${name}"]`).textContent =
+    query() ? `${shown} / ${rows.length}건` : `${rows.length}건`
+}
+function button(text, onClick) {
+  const b = document.createElement("button")
+  b.className = "small"; b.type = "button"; b.textContent = text; b.onclick = onClick
+  return b
+}
+function renderAll() {
+  Object.keys(TABLES).forEach(renderTable)
+  document.getElementById("members").textContent =
+    "구성원 이름 (참여자 칸에 이대로 쓰면 링크): " + MEMBER_NAMES.join(", ")
+}
+
+// 새 논문 id: 기존 manual-NN 다음 번호
+function nextId() {
+  const nums = state.publications.map((r) => Number((r.id || "").match(/^manual-(\d+)$/)?.[1] ?? 0))
+  return "manual-" + String(Math.max(0, ...nums) + 1).padStart(2, "0")
+}
+document.querySelectorAll("[data-add]").forEach((b) => {
+  b.onclick = () => {
+    const name = b.dataset.add
+    const row = Object.fromEntries(TABLES[name].map(([k]) => [k, ""]))
+    if (name === "publications") Object.assign(row, { id: nextId(), show: "Y", type: "논문", authors: "정혜경" })
+    state[name].unshift(row)
+    document.getElementById("search").value = ""
+    renderTable(name); persist()
+  }
+})
+document.getElementById("search").oninput = () => Object.keys(TABLES).forEach(renderTable)
+
+// ---------- 내보내기 ----------
+function csvEscape(v) {
+  const s = String(v ?? "")
+  return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s
+}
+function toCsv(name) {
+  const keys = TABLES[name].map(([k]) => k)
+  const lines = [keys.join(",")]
+  state[name].forEach((row) => lines.push(keys.map((k) => csvEscape(row[k])).join(",")))
+  return "﻿" + lines.join("\r\n") + "\r\n"
+}
+function download(filename, text) {
+  const blob = new Blob([text], { type: "text/csv;charset=utf-8" })
+  const a = document.createElement("a")
+  a.href = URL.createObjectURL(blob); a.download = filename
+  document.body.appendChild(a); a.click(); a.remove()
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000)
+}
+document.getElementById("btn-save").onclick = async () => {
+  for (const name of Object.keys(TABLES)) { download(`${name}.csv`, toCsv(name)); await new Promise((r) => setTimeout(r, 250)) }
+  flash("csv 3개를 내려받음 — 다운로드 폴더에서 lab_site/_intake/로 옮기고 npm run intake")
+}
+
+// ---------- 불러오기 ----------
+function parseCsv(text) {
+  text = text.replace(/^﻿/, "")
+  const rows = []; let row = []; let cur = ""; let q = false
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i]
+    if (q) {
+      if (c === '"' && text[i + 1] === '"') { cur += '"'; i++ }
+      else if (c === '"') q = false
+      else cur += c
+    } else if (c === '"') q = true
+    else if (c === ",") { row.push(cur); cur = "" }
+    else if (c === "\n" || c === "\r") {
+      if (c === "\r" && text[i + 1] === "\n") i++
+      row.push(cur); rows.push(row); row = []; cur = ""
+    } else cur += c
+  }
+  if (cur !== "" || row.length) { row.push(cur); rows.push(row) }
+  const [head, ...body] = rows.filter((r) => r.some((v) => v !== ""))
+  return body.map((r) => Object.fromEntries(head.map((k, i) => [k, r[i] ?? ""])))
+}
+document.getElementById("btn-load").onclick = () => document.getElementById("file-load").click()
+document.getElementById("file-load").onchange = async (e) => {
+  const loaded = []
+  for (const file of e.target.files) {
+    const base = file.name.replace(/\.csv$/i, "").replace(/\s*\(\d+\)$/, "")
+    if (TABLES[base]) { state[base] = parseCsv(await file.text()); loaded.push(file.name) }
+  }
+  e.target.value = ""
+  renderAll(); persist()
+  flash(loaded.length ? "불러옴: " + loaded.join(", ") : "알아볼 수 있는 파일이 없음 (publications.csv, reports.csv, theses.csv)", !loaded.length)
+}
+
+document.getElementById("btn-reset").onclick = () => {
+  if (!confirm("고친 내용을 모두 지우고 기본 목록으로 되돌릴까요? (내려받은 파일은 그대로)")) return
+  state = structuredClone(DEFAULTS)
+  renderAll(); persist()
+}
+
+const toTop = document.getElementById("to-top")
+window.addEventListener("scroll", () => toTop.classList.toggle("show", window.scrollY > 600))
+toTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" })
+
+renderAll()
+</script>
+</body>
+</html>

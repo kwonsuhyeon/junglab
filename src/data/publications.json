@@ -1,0 +1,754 @@
+[
+  {
+    "id": "cv-01",
+    "type": "article",
+    "title": "Health-related quality of life in adolescents and young adults with and without cancer, using propensity score matching",
+    "journal": "Journal of Cancer Survivorship",
+    "volume": "",
+    "year": "2021",
+    "date": "2021.11",
+    "doi": "10.1007/s11764-021-01150-3",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "공동"
+      }
+    ],
+    "areas": [
+      "causal-inference",
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-02",
+    "type": "article",
+    "title": "여성 관리자의 직장만족도 변화 양상에 대한 잠재전이분석: 조직문화의 영향",
+    "journal": "직업능력개발연구",
+    "volume": "",
+    "year": "2026",
+    "date": "2026.03",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-03",
+    "type": "article",
+    "title": "초등교원임용시험 대비 LLM 기반 영어 문항 생성기에 대한 예비교사의 인식 조사",
+    "journal": "교육문화연구",
+    "volume": "",
+    "year": "2026",
+    "date": "2026.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "공동"
+      }
+    ],
+    "areas": [
+      "ai-learning-analytics"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-04",
+    "type": "article",
+    "title": "직업능력개발훈련교사 역량에 따른 잠재프로파일분석: 자격교육과정 중심으로",
+    "journal": "실천공학교육논문지",
+    "volume": "",
+    "year": "2025",
+    "date": "2025.12",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "statistical-modeling",
+      "vocational-training"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-05",
+    "type": "article",
+    "title": "스마트폰 의존도의 매개효과 분석 사례를 중심으로 한 DAG 기반 인과모형과 SEM 비교",
+    "journal": "교육문화연구",
+    "volume": "",
+    "year": "2025",
+    "date": "2025.12",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "causal-inference"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-06",
+    "type": "article",
+    "title": "LMX와 직무성과의 관계: 직원몰입 잠재프로파일을 매개로 한 직·간접효과 분석",
+    "journal": "평생교육·HRD연구",
+    "volume": "",
+    "year": "2025",
+    "date": "2025.10",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-07",
+    "type": "article",
+    "title": "직업능력개발훈련교사 역량기반 향상교육과정 개선 방안 연구",
+    "journal": "실천공학교육논문지",
+    "volume": "",
+    "year": "2025",
+    "date": "2025.08",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-08",
+    "type": "article",
+    "title": "교사의 상상대로: 바이브 코딩을 활용한 영어 교육용 앱 개발",
+    "journal": "영어교과교육",
+    "volume": "",
+    "year": "2025",
+    "date": "2025.08",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "ai-learning-analytics"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-09",
+    "type": "article",
+    "title": "랜덤 포레스트와 SMOTE 기법을 활용한 대학생 학습성공 및 학습부진 예측 모델 연구 사례",
+    "journal": "교육평가연구",
+    "volume": "",
+    "year": "2024",
+    "date": "2024.12",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "ai-learning-analytics",
+      "higher-education"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-10",
+    "type": "article",
+    "title": "2단계 층화군집 계통표본추출 설계 사례: 학생맞춤지원 실태조사를 중심으로",
+    "journal": "교육평가연구",
+    "volume": "",
+    "year": "2024",
+    "date": "2024.09",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "causal-inference",
+      "education-training-policy"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-11",
+    "type": "article",
+    "title": "조직지원인식, 직원몰입, 지식공유의도, 적응수행 간의 구조적 관계: 경찰공무원을 중심으로",
+    "journal": "한국치안행정논집",
+    "volume": "",
+    "year": "2024",
+    "date": "2024.05",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-12",
+    "type": "article",
+    "title": "디지털전환 시대의 직업훈련 교·강사 역량체계 개발 연구",
+    "journal": "직업교육연구",
+    "volume": "",
+    "year": "2024",
+    "date": "2024.03",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-13",
+    "type": "article",
+    "title": "경향점수를 활용한 사내 플랫폼 지식공유가 개인의 직무만족과 조직문화 인식에 미치는 인과효과 추정",
+    "journal": "한국콘텐츠학회논문지",
+    "volume": "",
+    "year": "2024",
+    "date": "2024.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "causal-inference"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-14",
+    "type": "article",
+    "title": "사업주 직업능력개발사업 참여 기업 및 개인의 특성과 성과에 관한 연구",
+    "journal": "직업능력개발연구",
+    "volume": "",
+    "year": "2023",
+    "date": "2023.11",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "vocational-training",
+      "education-training-policy"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-15",
+    "type": "article",
+    "title": "공학계열 대학생 물리 기초학력평가 문항분석 및 성취수준 설정 사례연구",
+    "journal": "공학교육연구",
+    "volume": "",
+    "year": "2023",
+    "date": "2023.11",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "higher-education"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-16",
+    "type": "article",
+    "title": "내용중심 영어 교수 학습의 도구로서 ChatGPT의 활용 가능성 탐색",
+    "journal": "영어교과교육",
+    "volume": "",
+    "year": "2023",
+    "date": "2023.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "ai-learning-analytics"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-17",
+    "type": "article",
+    "title": "직업훈련교사의 디지털 역량 측정 설문도구 개발 연구",
+    "journal": "직업교육연구",
+    "volume": "",
+    "year": "2023",
+    "date": "2023.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-18",
+    "type": "article",
+    "title": "관계지향 문화, 인적자원개발의 중요성 인식, 조직몰입 간의 구조적 관계: MZ세대 여부에 따른 조건부 직간접 효과",
+    "journal": "HRD연구",
+    "volume": "",
+    "year": "2023",
+    "date": "2023.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-19",
+    "type": "article",
+    "title": "국내의 전기직종 직업훈련에 관한 통합적 문헌 연구",
+    "journal": "직업교육연구",
+    "volume": "",
+    "year": "2023",
+    "date": "2023.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-20",
+    "type": "article",
+    "title": "대학생 기초학력평가 수학교과 문항 분석 및 성취수준 설정 사례 연구",
+    "journal": "교육문화연구",
+    "volume": "",
+    "year": "2023",
+    "date": "2023.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "higher-education"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-21",
+    "type": "article",
+    "title": "인공지능 생성 지문에 대한 예비교사 인식 조사 연구",
+    "journal": "이중언어학",
+    "volume": "",
+    "year": "2022",
+    "date": "2022.12",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "ai-learning-analytics"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-22",
+    "type": "article",
+    "title": "SEMtree를 활용한 우리나라 청소년의 창의성 성장 모형 분석 사례 연구",
+    "journal": "교육평가연구",
+    "volume": "",
+    "year": "2022",
+    "date": "2022.12",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "causal-inference",
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-23",
+    "type": "article",
+    "title": "직업능력개발훈련 교·강사 역량 설문조사 도구 개발 및 요인분석을 통한 타당화 연구",
+    "journal": "HRD연구",
+    "volume": "",
+    "year": "2022",
+    "date": "2022.08",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-24",
+    "type": "article",
+    "title": "BART 기반 기계학습 인과효과 추정 사례 연구",
+    "journal": "교육평가연구",
+    "volume": "",
+    "year": "2022",
+    "date": "2022.06",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "causal-inference"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-25",
+    "type": "article",
+    "title": "Different Role Between Academic Self-Concept and Self-Efficacy in the Big-Fish-Little-Pond Effect",
+    "journal": "교육학연구",
+    "volume": "",
+    "year": "2022",
+    "date": "2022.05",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-26",
+    "type": "article",
+    "title": "A Simulation Study for Examining Roles of Sampling Weight in Multilevel Analysis with data from a Complex Survey Design",
+    "journal": "교육학연구",
+    "volume": "",
+    "year": "2021",
+    "date": "2021.11",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "causal-inference"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-27",
+    "type": "article",
+    "title": "기관패널 표집설계를 통한 훈련 교·강사 실태조사 방안 연구",
+    "journal": "실천공학교육논문지",
+    "volume": "",
+    "year": "2021",
+    "date": "2021.08",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "causal-inference",
+      "vocational-training"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-28",
+    "type": "article",
+    "title": "잠재프로파일분석을 통한 중학교 과학 학생 성취특성 분석",
+    "journal": "교육과정평가연구",
+    "volume": "",
+    "year": "2021",
+    "date": "2021.05",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "책임"
+      }
+    ],
+    "areas": [
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-29",
+    "type": "article",
+    "title": "잠재프로파일분석을 통한 성인 근로자의 경력역량 유형 분류 및 유형별 특성 분석",
+    "journal": "Andragogy Today",
+    "volume": "",
+    "year": "2021",
+    "date": "2021.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "statistical-modeling"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-30",
+    "type": "article",
+    "title": "기업의 인적자원개발투자가 조직성과에 미치는 영향에 대한 종단연구",
+    "journal": "HRD연구",
+    "volume": "",
+    "year": "2021",
+    "date": "2021.02",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "교신"
+      }
+    ],
+    "areas": [
+      "statistical-modeling",
+      "education-training-policy"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  },
+  {
+    "id": "cv-book-01",
+    "type": "book",
+    "title": "디지털시대의 인공지능과 교육",
+    "journal": "학지사",
+    "volume": "",
+    "year": "2024",
+    "date": "2024",
+    "doi": "",
+    "kciUrl": "",
+    "authors": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor",
+        "role": "공동집필"
+      }
+    ],
+    "areas": [
+      "ai-learning-analytics"
+    ],
+    "summary": "",
+    "approved": true,
+    "pdf": ""
+  }
+]

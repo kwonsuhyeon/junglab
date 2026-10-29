@@ -1,0 +1,20 @@
+{
+  "name": "Educational Evaluation Lab",
+  "nameKo": "",
+  "logoText": "Educational Evaluation Lab",
+  "affiliation": "한국기술교육대학교 HRD학과",
+  "tagline": "교육과 훈련의 효과를 데이터로 검증합니다",
+  "taglineSub": "평가 설계부터 인과추론까지, 근거 있는 결정을 돕는 연구실",
+  "email": "hjung@koreatech.ac.kr",
+  "phone": "041-560-1108",
+  "address": "",
+  "kci": {
+    "authorName": "정혜경",
+    "startYear": "",
+    "affiliations": [
+      "한국기술교육대학교 HRD학과",
+      "한국기술교육대학교 테크노인력개발전문대학원",
+      "한국교육과정평가원"
+    ]
+  }
+}

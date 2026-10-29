@@ -1,0 +1,52 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# personal / work files (not for repo)
+plan.md
+CLAUDE.md
+_workspace/
+
+# lab_site: 입력 폼 산출물, KCI 원본, 비공개 원문 PDF
+_intake/*.md
+_intake/*.csv
+_papers/
+src/data/kci-raw.json
+# 받은 원본 파일, 교수 CV·포스터 원본 PDF (공개 저장소에 올리지 않음)
+inbox/
+tasks/*.pdf
+
+# claude code local settings
+.claude/
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

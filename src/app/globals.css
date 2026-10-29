@@ -1,0 +1,243 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS 변수 — 디자인 토큰 (web_site에서 그대로 가져옴)
+   ============================================================ */
+:root {
+  /* Brand Colors */
+  --color-primary: #4F46E5;
+  --color-secondary: #0F172A;
+  --color-accent: #10B981;
+
+  /* Background */
+  --bg-base: #FFFFFF;
+  --bg-muted: #F8FAFC;
+  --bg-subtle: #F1F5F9;
+  --bg-dark: #0F172A;
+  --bg-dark-muted: #1E293B;
+  --bg-dark-subtle: #334155;
+
+  /* Text */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-inverse: #FFFFFF;
+  --text-accent: #10B981;
+
+  /* Border */
+  --border-default: #E2E8F0;
+  --border-muted: #F1F5F9;
+  --border-dark: #334155;
+
+  /* Header */
+  --header-height-desktop: 64px;
+  --header-height-mobile: 56px;
+  --header-bg: rgba(15, 23, 42, 0.95);
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-slate-900 antialiased;
+    font-family: 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+    line-height: 1.25;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+}
+
+/* ============================================================
+   Component Classes
+   ============================================================ */
+@layer components {
+
+  /* --- Buttons --- */
+  .btn {
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-emerald-500 hover:bg-emerald-600 text-white
+           focus:ring-emerald-500 shadow-md hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply btn bg-indigo-600 hover:bg-indigo-700 text-white
+           focus:ring-indigo-500 shadow-md hover:shadow-lg;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-emerald-500 text-emerald-500
+           hover:bg-emerald-500 hover:text-white focus:ring-emerald-500;
+  }
+
+  .btn-ghost {
+    @apply btn text-slate-300 hover:text-white hover:bg-slate-700
+           focus:ring-slate-500;
+  }
+
+  .btn-dark {
+    @apply btn bg-slate-800 hover:bg-slate-700 text-white
+           border border-slate-600 focus:ring-slate-500;
+  }
+
+  .btn-sm  { @apply px-3 py-1.5 text-sm; }
+  .btn-md  { @apply px-5 py-2.5 text-base; }
+  .btn-lg  { @apply px-7 py-3.5 text-lg; }
+
+  /* --- Cards --- */
+  .card {
+    @apply bg-white rounded-xl border border-slate-200 overflow-hidden
+           transition-all duration-200;
+  }
+
+  .card-default {
+    @apply card shadow-card hover:shadow-cardHover hover:-translate-y-0.5;
+  }
+
+  .card-dark {
+    @apply card bg-slate-800 border-slate-700
+           shadow-card hover:shadow-cardHover hover:-translate-y-0.5;
+  }
+
+  .card-flat {
+    @apply card shadow-none border border-slate-200;
+  }
+
+  /* --- Badges --- */
+  .badge {
+    @apply inline-flex items-center rounded-full font-medium;
+  }
+
+  .badge-accent {
+    @apply badge bg-emerald-100 text-emerald-700 border border-emerald-200;
+  }
+
+  .badge-primary {
+    @apply badge bg-indigo-100 text-indigo-700 border border-indigo-200;
+  }
+
+  .badge-dark {
+    @apply badge bg-slate-700 text-slate-200 border border-slate-600;
+  }
+
+  .badge-neutral {
+    @apply badge bg-slate-100 text-slate-600 border border-slate-200;
+  }
+
+  .badge-sm  { @apply px-2 py-0.5 text-xs; }
+  .badge-md  { @apply px-3 py-1 text-sm; }
+  .badge-lg  { @apply px-4 py-1.5 text-base; }
+
+  /* --- Navigation Links --- */
+  .nav-link {
+    @apply text-sm font-medium transition-colors duration-200 relative;
+  }
+
+  .nav-link-active {
+    @apply text-white after:absolute after:bottom-0 after:left-0
+           after:w-full after:h-0.5 after:bg-emerald-400;
+  }
+
+  .nav-link-inactive {
+    @apply text-slate-400 hover:text-white;
+  }
+
+  /* --- Page Hero --- */
+  .page-hero {
+    @apply bg-slate-900 py-16 md:py-24;
+  }
+
+  .page-hero-inner {
+    @apply max-w-screen-xl mx-auto px-4 md:px-8;
+  }
+
+  .page-hero-badge {
+    @apply inline-flex items-center gap-2 bg-emerald-900/50 text-emerald-400
+           border border-emerald-500/30 rounded-full px-3 py-1 text-sm mb-4;
+  }
+
+  .page-hero-title {
+    @apply text-3xl md:text-4xl font-extrabold;
+    color: #ffffff !important;
+  }
+
+  .page-hero-subtitle {
+    @apply mt-3 text-lg text-slate-400 max-w-2xl;
+  }
+
+  /* --- Timeline --- */
+  /* pl-6(24px) + border-l-2(2px) = item div가 타임라인 좌측에서 26px 위치
+     dot center = border center(1px) → dot left(from item div) = 1 - 26 - 8 = -33px */
+  .timeline {
+    @apply relative pl-6 border-l-2 border-emerald-500/40 space-y-8;
+  }
+
+  .timeline-dot {
+    @apply absolute w-4 h-4 rounded-full bg-emerald-500 border-2 border-white shadow-sm;
+    left: -33px;
+  }
+
+  .timeline-date  { @apply text-sm font-semibold text-emerald-600 mb-1 whitespace-nowrap; }
+  .timeline-title { @apply text-base font-semibold text-slate-900; }
+  .timeline-sub   { @apply text-sm text-slate-500; }
+
+  /* --- Section Container --- */
+  .section-container {
+    @apply mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* --- Filter Tabs --- */
+  .filter-tab {
+    @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer;
+  }
+
+  .filter-tab-active   { @apply bg-emerald-500 text-white shadow-sm; }
+  .filter-tab-inactive { @apply bg-slate-100 text-slate-600 hover:bg-slate-200; }
+
+  /* --- Member anchor (/people#member-{slug}) --- */
+  /* 고정 헤더(h-16) + 여백만큼 띄워 카드가 헤더에 가리지 않게 */
+  .member-card {
+    scroll-margin-top: 5rem;
+  }
+
+  /* --- Skeleton --- */
+  .skeleton      { @apply animate-pulse bg-slate-200 rounded; }
+  .skeleton-dark { @apply animate-pulse bg-slate-700 rounded; }
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+}

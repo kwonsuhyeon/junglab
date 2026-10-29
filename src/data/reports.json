@@ -1,0 +1,471 @@
+[
+  {
+    "id": "report-01",
+    "type": "report",
+    "title": "AI·빅데이터 기반 직업훈련기관 프로파일링 및 성과편차 분석체계 고도화 방안 연구",
+    "client": "한국기술교육대학교 고용직업능력개발센터",
+    "year": "2025",
+    "period": "2025.10 ~ 2026.01",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "vocational-training",
+      "ai-learning-analytics"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-02",
+    "type": "report",
+    "title": "[직업계고 채용연계형 직무교육과정 지원사업] 취업 성과창출 및 취업 유지 방안 연구",
+    "client": "대한상공회의소",
+    "year": "2025",
+    "period": "2025.10 ~ 2026.02",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy",
+      "vocational-training"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-03",
+    "type": "report",
+    "title": "직업능력개발훈련교사 역량 기반 교직훈련과정 개편 방안 연구",
+    "client": "한국기술교육대학교 능력개발교육원",
+    "year": "2025",
+    "period": "2025.05 ~ 2025.07",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-04",
+    "type": "report",
+    "title": "AIDT 교육자료 효과성 및 활용 방안 연구",
+    "client": "한국교과서재단",
+    "year": "2025",
+    "period": "2025.08 ~ 2026.03",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "ai-learning-analytics",
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-05",
+    "type": "report",
+    "title": "고교교육과정 변화에 따른 2028학년도 대학입학전형 개발 연구",
+    "client": "한국기술교육대학교",
+    "year": "2025",
+    "period": "2025.09 ~ 2025.12",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "higher-education"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-06",
+    "type": "report",
+    "title": "대학교육 통합성과관리체계를 위한 대학 IR시스템 개선 연구",
+    "client": "한국기술교육대학교",
+    "year": "2025",
+    "period": "2025.08 ~ 2026.01",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "higher-education"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-07",
+    "type": "report",
+    "title": "기초학력평가 기반 학업성취예측모델 개발 및 활용 연구",
+    "client": "한국기술교육대학교",
+    "year": "2025",
+    "period": "2025.08 ~ 2026.01",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "higher-education",
+      "ai-learning-analytics"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-08",
+    "type": "report",
+    "title": "신병 정신전력교육효과 분석",
+    "client": "국방정신전력원",
+    "year": "2025",
+    "period": "2025.04 ~ 2025.11",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-09",
+    "type": "report",
+    "title": "2025 고교학점제 운영 현장 모니터링 및 과제 발굴",
+    "client": "한국교육과정평가원",
+    "year": "2025",
+    "period": "2025.04 ~ 2025.12",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-10",
+    "type": "report",
+    "title": "직업계고 채용연계형 직무교육과정 지원사업 취업활성화를 위한 성과분석 및 발전방안 연구",
+    "client": "대한상공회의소",
+    "year": "2024",
+    "period": "2024.11 ~ 2025.02",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy",
+      "vocational-training"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-11",
+    "type": "report",
+    "title": "고교생 맞춤형 고용서비스 고졸인재성장로드맵 구축연구",
+    "client": "고용노동부",
+    "year": "2024",
+    "period": "2024.05 ~ 2024.12",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-12",
+    "type": "report",
+    "title": "실감형 디지털 정신전력교육 실태 및 개선 방안 연구",
+    "client": "국방정신전력원",
+    "year": "2024",
+    "period": "2024.05 ~ 2024.12",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-13",
+    "type": "report",
+    "title": "학생맞춤지원 실태조사 표본설계 연구",
+    "client": "한국교육개발원",
+    "year": "2023",
+    "period": "2023.11 ~ 2024.03",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "causal-inference",
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-14",
+    "type": "report",
+    "title": "직업능력개발훈련교사 자격 등급별 역량기반 향상훈련과정 교과목 개선 방안",
+    "client": "한국기술교육대학교 능력개발교육원",
+    "year": "2023",
+    "period": "2023.11 ~ 2024.02",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-15",
+    "type": "report",
+    "title": "군 내 인성교육 프로그램 간 효과성 비교연구",
+    "client": "국방부",
+    "year": "2022",
+    "period": "2022.08 ~ 2022.12",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-16",
+    "type": "report",
+    "title": "2022년 단계적 적응형 세종한국어평가(SKA) 연구 및 개발",
+    "client": "세종학당재단",
+    "year": "2022",
+    "period": "2022.03 ~ 2022.12",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "statistical-modeling"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-17",
+    "type": "report",
+    "title": "기초학력평가 문항분석 및 성취수준 설정",
+    "client": "한국기술교육대학교",
+    "year": "2021",
+    "period": "2021.05 ~ 2022.01",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "higher-education"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-18",
+    "type": "report",
+    "title": "초중등 학생평가 컨설팅 및 과정중심 피드백 자료 개발",
+    "client": "한국과학창의재단",
+    "year": "2021",
+    "period": "2021.05 ~ 2021.09",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-19",
+    "type": "report",
+    "title": "직업능력개발훈련 교·강사 패널조사 심층분석 및 운영방안 연구",
+    "client": "한국기술교육대학교 고용직업능력개발센터",
+    "year": "2021",
+    "period": "2021.05 ~ 2021.12",
+    "role": "연구책임자",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-20",
+    "type": "report",
+    "title": "교육 분야 양극화 추이 분석 연구(II)",
+    "client": "한국교육개발원",
+    "year": "2021",
+    "period": "2021.03 ~ 2021.10",
+    "role": "공동연구원",
+    "status": "완료",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy",
+      "statistical-modeling"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-21",
+    "type": "report",
+    "title": "'26 정신전력 지수측정",
+    "client": "국방정신전력원",
+    "year": "2026",
+    "period": "2026.05 ~ 2026.12",
+    "role": "공동연구원",
+    "status": "진행 중",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "education-training-policy"
+    ],
+    "pdf": "",
+    "link": ""
+  },
+  {
+    "id": "report-22",
+    "type": "report",
+    "title": "직업기초능력 평가제도 도입을 위한 연구",
+    "client": "한국기술교육대학교 고용직능센터",
+    "year": "2026",
+    "period": "2026.05 ~ 2026.12",
+    "role": "공동연구원",
+    "status": "예정",
+    "participants": [
+      {
+        "name": "정혜경",
+        "memberSlug": "professor"
+      }
+    ],
+    "areas": [
+      "vocational-training"
+    ],
+    "pdf": "",
+    "link": ""
+  }
+]

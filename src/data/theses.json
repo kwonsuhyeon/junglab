@@ -1,0 +1,68 @@
+[
+  {
+    "id": "thesis-01",
+    "type": "thesis",
+    "author": "윤중헌",
+    "memberSlug": "yoon-jungheon",
+    "title": "고등교육 맞춤형 학습 지원을 위한 데이터 기반 혼합효과 머신러닝 예측모형 학습 및 평가",
+    "degree": "박사",
+    "school": "한국기술교육대학교",
+    "year": "2026",
+    "link": ""
+  },
+  {
+    "id": "thesis-02",
+    "type": "thesis",
+    "author": "유다선",
+    "memberSlug": "yu-daseon",
+    "title": "직업훈련에서의 생성형 AI-인간 협업 평가에 대한 탐색적 접근",
+    "degree": "박사",
+    "school": "한국기술교육대학교",
+    "year": "2026",
+    "link": ""
+  },
+  {
+    "id": "thesis-03",
+    "type": "thesis",
+    "author": "노창균",
+    "memberSlug": "noh-changgyun",
+    "title": "잠재 프로파일 분석(LPA)을 활용한 과학기술 연구개발인력의 경력만족 유형 및 관련 요인에 관한 연구",
+    "degree": "석사",
+    "school": "한국기술교육대학교",
+    "year": "2026",
+    "link": ""
+  },
+  {
+    "id": "thesis-04",
+    "type": "thesis",
+    "author": "권수현",
+    "memberSlug": "kwon-suhyeon",
+    "title": "AI를 활용한 프로그래밍 교육의 통합적 문헌 고찰",
+    "degree": "석사",
+    "school": "한국기술교육대학교",
+    "year": "2026",
+    "link": ""
+  },
+  {
+    "id": "thesis-05",
+    "type": "thesis",
+    "author": "이수진",
+    "memberSlug": "lee-sujin",
+    "title": "조직구성원의 리더-구성원 교환관계(LMX), 직원몰입, 직무성과 간의 구조적 관계",
+    "degree": "석사",
+    "school": "한국기술교육대학교",
+    "year": "2024",
+    "link": ""
+  },
+  {
+    "id": "thesis-06",
+    "type": "thesis",
+    "author": "박민주",
+    "memberSlug": "park-minju",
+    "title": "사업주 직업능력개발사업 지속적 참여 집단의 특성 및 성과 분석 연구",
+    "degree": "박사",
+    "school": "한국기술교육대학교",
+    "year": "2023",
+    "link": ""
+  }
+]

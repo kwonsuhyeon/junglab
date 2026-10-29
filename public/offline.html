@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0F172A" />
+  <title>오프라인 | Educational Evaluation Lab</title>
+  <style>
+    :root {
+      --bg-dark: #0F172A;
+      --text-inverse: #FFFFFF;
+      --text-muted: #94A3B8;
+      --color-accent: #10B981;
+      --color-accent-hover: #059669;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: var(--bg-dark);
+      color: var(--text-inverse);
+      font-family: 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
+      line-height: 1.7;
+      text-align: center;
+    }
+    .label { font-size: 3.5rem; font-weight: 800; color: var(--color-accent); margin-bottom: 16px; }
+    h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+    p { color: var(--text-muted); max-width: 24rem; margin: 0 auto 32px; }
+    a {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      background: var(--color-accent);
+      color: var(--text-inverse);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    a:hover { background: var(--color-accent-hover); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="label">Offline</div>
+    <h1>인터넷에 연결되어 있지 않습니다</h1>
+    <p>네트워크 연결을 확인한 뒤 다시 시도해 주세요.</p>
+    <a href="/">다시 시도하기</a>
+  </main>
+</body>
+</html>
