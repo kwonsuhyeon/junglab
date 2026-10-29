@@ -1,0 +1,12 @@
+# vercel CLI로 배포할 때 올리지 않는 로컬 전용 파일 (.gitignore와 같은 기준)
+.env*.local
+.env
+inbox/
+_papers/
+_workspace/
+_intake/*.md
+_intake/*.csv
+tasks/*.pdf
+src/data/kci-raw.json
+.next/
+node_modules/

@@ -1,11 +1,15 @@
 // _intake/의 입력 폼 산출물을 src/data/*.json으로 바꾼다 (US-003)
 // - lab-intake.html → lab-content.md, members.csv, activities.csv
-// - research-edit.html → publications.csv, reports.csv, theses.csv
+// - public/edit/research.html(온라인 공개) → publications.csv, reports.csv, theses.csv
 // 파일이 아직 없으면 각 폼의 DEFAULTS를 쓴다 — 기본값은 폼 한 곳에만 둔다
+// 변환이 끝나면 research.html의 DEFAULTS를 방금 읽은 연구 목록으로 갈아 끼워, 온라인 폼이 최신 목록을 보여 주게 한다
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs"
 import { join } from "node:path"
 
 const INTAKE_DIR = "_intake"
+const LAB_FORM = join(INTAKE_DIR, "lab-intake.html")
+const RESEARCH_FORM = join("public", "edit", "research.html")
+const RESEARCH_TABLES = ["publications", "reports", "theses"]
 const OUT_DIR = join("src", "data")
 const SLUG_RE = /^[a-z]+(-[a-z]+)+$/
 const PROFESSOR_SLUG = "professor"
@@ -15,13 +19,23 @@ const errors = []
 const fail = (where, msg) => errors.push(`${where}: ${msg}`)
 
 // ---------- 폼 기본값 ----------
-function readFormDefaults(file) {
-  const html = readFileSync(join(INTAKE_DIR, file), "utf8")
+function defaultsRange(html, file) {
   const start = html.indexOf("const DEFAULTS = {")
   const end = html.indexOf("\n}\n", start)
   if (start < 0 || end < 0) throw new Error(`${file}에서 DEFAULTS를 찾지 못함`)
-  const literal = html.slice(start + "const DEFAULTS = ".length, end + 2)
-  return new Function(`return (${literal})`)()
+  return [start + "const DEFAULTS = ".length, end + 2]
+}
+
+function readFormDefaults(file) {
+  const html = readFileSync(file, "utf8")
+  const [start, end] = defaultsRange(html, file)
+  return new Function(`return (${html.slice(start, end)})`)()
+}
+
+function writeFormDefaults(file, data) {
+  const html = readFileSync(file, "utf8")
+  const [start, end] = defaultsRange(html, file)
+  writeFileSync(file, html.slice(0, start) + JSON.stringify(data, null, 2) + html.slice(end), "utf8")
 }
 
 // ---------- 파서 (lab-intake.html의 parseCsv·parseMd와 같은 규칙) ----------
@@ -71,8 +85,8 @@ function parseMd(text) {
 
 // ---------- 입력 읽기 ----------
 const defaults = {
-  ...readFormDefaults("lab-intake.html"),
-  ...readFormDefaults("research-edit.html"),
+  ...readFormDefaults(LAB_FORM),
+  ...readFormDefaults(RESEARCH_FORM),
 }
 const sources = {}
 
@@ -164,7 +178,7 @@ const theses = thesisRows.map((r, i) => ({
 const seenIds = new Map()
 const publications = publicationRows.map((r) => {
   const where = `${sources.publications} ${r.__line}째 줄`
-  if (!r.id) fail(where, "id가 비어 있음 (research-edit.html의 '+ 논문 추가'로 만들면 자동으로 붙음)")
+  if (!r.id) fail(where, "id가 비어 있음 (research.html의 '+ 논문 추가'로 만들면 자동으로 붙음)")
   if (!r.title) fail(where, "제목이 비어 있음")
   if (seenIds.has(r.id)) fail(where, `id "${r.id}" 중복 (먼저 나온 곳: ${seenIds.get(r.id)})`)
   seenIds.set(r.id, where)
@@ -267,8 +281,20 @@ for (const [name, data] of Object.entries(outputs)) {
   writeFileSync(join(OUT_DIR, `${name}.json`), JSON.stringify(data, null, 2) + "\n", "utf8")
 }
 
+// 온라인 연구 목록 폼의 기본값을 방금 반영한 목록으로 맞춘다 (csv를 넣었을 때만)
+const rowsByTable = { publications: publicationRows, reports: reportRows, theses: thesisRows }
+const formData = readFormDefaults(RESEARCH_FORM)
+let formUpdated = false
+for (const name of RESEARCH_TABLES) {
+  if (sources[name] === "폼 기본값") continue
+  formData[name] = rowsByTable[name].map(({ __line, ...row }) => row)
+  formUpdated = true
+}
+if (formUpdated) writeFormDefaults(RESEARCH_FORM, formData)
+
 console.log("src/data 생성 완료")
 console.log(`  기본 정보·교수: ${sources.content}`)
 for (const name of ["members", "publications", "theses", "reports", "activities"]) {
   console.log(`  ${name}.json ${outputs[name].length}건 ← ${sources[name]}`)
 }
+if (formUpdated) console.log(`  ${RESEARCH_FORM} 기본 목록도 갱신함 → 커밋·푸시하면 온라인 폼에 반영`)

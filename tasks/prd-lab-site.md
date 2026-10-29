@@ -14,7 +14,7 @@ BuildWork 홈페이지(`C:\Users\user\Dropbox\web_site`)의 디자인과 컴포�
 |---|---|
 | 2026-10-29 | 메뉴를 Home / People / Project / Workshop으로 바꾸고 주소도 `/people`, `/project`, `/workshop`으로 맞춤. 예전 주소(`/about`, `/research`, `/activities`)는 308 리다이렉트 |
 | 2026-10-29 | 연구 목록(논문·저서, 보고서, 학위논문) 편집을 `_intake/research-edit.html`로 분리. `lab-intake.html`은 랩 정보·교수·구성원·KCI 설정·워크숍만 다룸 |
-| 2026-10-29 | 논문 30편·저서 1권·과제 22건을 교수 CV(`tasks/정교수님.pdf`)에서 시드로 넣음. KCI 수집(US-009) 전까지 이 목록이 기준 |
+| 2026-10-29 | 논문 30편·저서 1권·과제 22건을 교수 CV(`../lab_site_private/tasks/정교수님.pdf`(저장소 밖))에서 시드로 넣음. KCI 수집(US-009) 전까지 이 목록이 기준 |
 | 2026-10-29 | People 카드: 해시 진입 시 강조 테두리는 넣지 않음(스크롤만). 구성원 학위논문(학위·연도·제목)을 카드에 표시 |
 | 2026-10-29 | 교수 사진을 SCM 특강 포스터 원본(`public/people/jung-hyekyung.jpg`)으로 교체. 파비콘·PWA 아이콘은 초록 바탕 "E" 텍스트 아이콘 |
 
@@ -33,7 +33,7 @@ BuildWork 홈페이지(`C:\Users\user\Dropbox\web_site`)의 디자인과 컴포�
 | 논문 요약 | Claude가 초록을 바탕으로 "어떤 연구였고 무엇을 다뤘는지" 2~3문장으로 쓴다 |
 | 참여자 링크 | 랩 구성원 저자는 `/people#member-{slug}`로 연결. 랩 밖 공저자는 이름만 표시 |
 | 교수 소속 | 한국기술교육대학교 HRD학과, 한국기술교육대학교 테크노인력개발전문대학원, 한국교육과정평가원(이전 소속). KCI 결과를 이 세 소속으로 거른다 |
-| 교수 정보 | 출처: KOREATECH TLO 연구자 페이지(https://tlo.koreatech.ac.kr/researcher/1458), SCM 특강 포스터(`tasks/SCM_특강포스터_v3.pdf`). 사진은 SCM 특강 포스터 원본 사진을 쓴다(TLO 사진은 해상도가 낮음) |
+| 교수 정보 | 출처: KOREATECH TLO 연구자 페이지(https://tlo.koreatech.ac.kr/researcher/1458), SCM 특강 포스터(`../lab_site_private/tasks/SCM_특강포스터_v3.pdf`(저장소 밖)). 사진은 SCM 특강 포스터 원본 사진을 쓴다(TLO 사진은 해상도가 낮음) |
 | 랩 이름 후보 | TLO 페이지 표기 "Educational Evaluation Lab". 폼 기본값으로 넣고 확정은 폼에서 한다 |
 | 구성원 | 박사 졸업: 박민주, 윤중헌, 유다선 / 박사과정: 이수진, 노창균, 권수현 / 석사과정: 김용운. 졸업생도 People 페이지에 카드를 두고 참여자 링크를 건다 |
 | 배포 | GitHub 저장소 `kwonsuhyeon/junglab` + Vercel. 도메인은 배포 단계에서 정한다 |
@@ -280,7 +280,7 @@ BuildWork 홈페이지(`C:\Users\user\Dropbox\web_site`)의 디자인과 컴포�
 - [ ] `.env.local.example`에 `PORT`, `KCI_API_KEY` 항목만 남긴다(값은 비움)
 - [ ] `.gitignore`에 `.env.local`, `src/data/kci-raw.json`, `_intake/*.md`, `_intake/*.csv`, `_workspace/`, `_papers/`를 넣는다(`publications.json`과 `src/data/*.json`은 커밋 대상)
 - [ ] 별도 GitHub 저장소(`https://github.com/kwonsuhyeon/junglab`)와 별도 Vercel 프로젝트로 배포한다. 도메인은 9절 미결 사항
-- [ ] 공개 저장소에 올리지 않는 것: `.env.local`(KCI 키), `_intake/*.md·*.csv`, `inbox/`, `_papers/`, `_workspace/`, `tasks/*.pdf`(교수 CV·포스터 원본)
+- [ ] 공개 저장소에 올리지 않는 것: `.env.local`(KCI 키), `_intake/*.md·*.csv`, `inbox/`, `_papers/`, `_workspace/`, 교수 CV·포스터 원본 PDF(저장소 밖 `lab_site_private/`로 옮김)
 - [ ] 로컬 빌드 검증은 Dropbox 잠금(EBUSY)을 피해 scratchpad 복사본에서 `next build`로 한다. dev 서버를 켠 채 같은 폴더에서 build하지 않는다
 - [ ] 빌드 성공, 모든 정적 페이지 생성 확인
 
