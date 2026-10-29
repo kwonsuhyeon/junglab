@@ -116,10 +116,21 @@ interface PublicationRow {
   pdf: string
 }
 
+// 편집 폼의 원문 링크 칸에는 KCI 말고도 RISS·기관 페이지 주소가 들어온다 — 주소를 보고 버튼 이름을 정한다
+const linkLabel = (href: string) => (/(^|\.)kci\.go\.kr$/i.test(safeHost(href)) ? "KCI에서 보기" : "원문 링크")
+
+function safeHost(href: string) {
+  try {
+    return new URL(href).hostname
+  } catch {
+    return ""
+  }
+}
+
 function fromPublication(p: PublicationRow): ResearchItem {
   const links = [
     p.pdf && { label: "원문 PDF", href: p.pdf },
-    p.kciUrl && { label: "KCI에서 보기", href: p.kciUrl },
+    p.kciUrl && { label: linkLabel(p.kciUrl), href: p.kciUrl },
     p.doi && { label: "DOI", href: `https://doi.org/${p.doi}` },
   ].filter(Boolean) as ResearchItem["links"]
   return {
